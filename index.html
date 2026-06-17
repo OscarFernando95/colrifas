@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COLRIFAS | Sorteos Premium y Premios de Lujo</title>
+  <meta name="description"
+    content="Participa en los sorteos más grandes y transparentes. Únete a nuestro grupo de WhatsApp exclusivo para asegurar tus boletos y ver los sorteos en vivo.">
+
+  <!-- Preconectar Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap"
+    rel="stylesheet">
+
+  <!-- Favicon / Estilos -->
+  <link rel="icon" type="image/png" href="img/Logo sin fondo con todo.png">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Evitar FOUC (Flash of Unstyled Content) de tema claro/oscuro -->
+  <script>
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- Barra de Navegación -->
+  <header class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="logo" id="nav-logo">
+        <img src="img/Logo sin fondo.png" alt="COLRIFAS Logo" class="logo-img"> <span class="logo-gold">COLRIFAS</span>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu">
+        <a href="#inicio" class="nav-link">Inicio</a>
+        <a href="#como-participar" class="nav-link">Cómo Participar</a>
+        <a href="#ganadores" class="nav-link">Ganadores</a>
+        <a href="#redes" class="nav-link">Redes</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Alternador de Tema -->
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41">
+            </path>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+
+        <a href="#" class="btn btn-whatsapp btn-nav whatsapp-trigger-link" id="btn-header-join">
+          <span>Unirse al Grupo</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sección Hero -->
+  <section class="hero-section" id="inicio">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="promo-badge" id="hero-badge">
+          <span class="badge-icon">✨</span> MARAVILLOSOS SORTEOS DIARIOS Y SEMANALES
+        </div>
+
+        <h1 class="hero-title" id="hero-headline">
+          ¡Gana Premios en <br><span class="text-gold">Efectivo y Lujo</span> con COLRIFAS!
+        </h1>
+
+        <p class="hero-description" id="hero-subtext">
+          Únete a nuestro grupo oficial y exclusivo de WhatsApp. Es 100% gratuito. Participa en sorteos de
+          dinero en efectivo y muchos premios más. Todos los ganadores se seleccionan de la lotería del día.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-whatsapp btn-lg btn-glow whatsapp-trigger-link" id="hero-cta-main">
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="currentColor">
+              <path
+                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.458L0 24zm6.59-4.846c1.6.95 3.167 1.453 4.803 1.455 5.513 0 9.998-4.485 10.001-9.998.003-2.671-1.03-5.182-2.91-7.062C16.604 1.67 14.096.638 11.432.637 5.92 .637 1.433 5.12 1.43 10.635c-.001 1.7.443 3.359 1.288 4.793l-.997 3.637 3.73-.978L6.647 19.16l.001-.006zM18.006 14.61c-.328-.165-1.947-.961-2.247-1.07-.3-.109-.52-.163-.739.165-.219.329-.848 1.07-1.039 1.289-.191.219-.383.246-.711.081-.328-.164-1.385-.51-2.638-1.627-.975-.87-1.632-1.944-1.823-2.272-.192-.328-.02-.506.143-.669.148-.147.329-.383.493-.574.164-.192.219-.328.329-.548.11-.219.054-.41-.028-.574-.081-.164-.738-1.777-1.011-2.434-.266-.64-.539-.553-.739-.563-.19-.01-.41-.011-.629-.011-.219 0-.575.082-.876.41-.3.329-1.15 1.122-1.15 2.736 0 1.614 1.177 3.174 1.339 3.393.164.219 2.316 3.537 5.611 4.96.783.338 1.396.54 1.874.693.788.25 1.505.215 2.072.13.632-.094 1.948-.797 2.221-1.567.272-.77.272-1.429.191-1.567-.081-.137-.3-.22-.628-.383z" />
+            </svg>
+            <span>Quiero Unirme Gratis</span>
+          </a>
+          <a href="#como-participar" class="btn btn-outline btn-lg" id="hero-cta-secondary">
+            <span>¿Cómo Funciona?</span>
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Transparente</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number">+150</span>
+            <span class="stat-label">Ganadores</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number">Gratis</span>
+            <span class="stat-label">El Ingreso</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cuadrícula de Cápsulas Staggered (Galería) -->
+      <div class="hero-gallery-container">
+        <div class="capsule-grid">
+          <div class="grid-col col-1">
+            <div class="capsule-card">
+              <img src="img/model1.jpg?v=3" alt="Ganadora Sorteo 1">
+            </div>
+            <div class="capsule-card">
+              <img src="img/gold_money.jpg" alt="Premios en Dinero en Efectivo">
+            </div>
+          </div>
+          <div class="grid-col col-2">
+            <div class="capsule-card">
+              <img src="img/raffle_grid.jpg" alt="Tabla de Sorteo">
+            </div>
+            <div class="capsule-card">
+              <img src="img/model4.jpg?v=3" alt="Ganadora Sorteo 2">
+            </div>
+          </div>
+          <div class="grid-col col-3">
+            <div class="capsule-card">
+              <img src="img/model3.jpg?v=3" alt="Ganadora Sorteo 3">
+            </div>
+            <div class="capsule-card">
+              <img src="img/transfers.jpg?v=3" alt="Transferencias y Premios Entregados">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Cómo Participar -->
+  <section class="steps-section" id="como-participar">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">¿Cómo Participar en los Sorteos?</h2>
+        <p class="section-subtitle">Sigue estos sencillos pasos y asegura tu oportunidad de ganar. Todo el proceso es
+          público y auditable.</p>
+      </div>
+
+      <div class="steps-grid">
+        <!-- Paso 1 -->
+        <div class="step-card" id="step-card-1">
+          <div class="step-icon-wrapper">
+            <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="step-number-badge">1</span>
+          </div>
+          <h3 class="step-card-title">1. Únete al Grupo</h3>
+          <p class="step-card-description">
+            Haz clic en los botones de esta página para entrar a nuestro grupo oficial y privado de WhatsApp. El ingreso
+            es totalmente gratis.
+          </p>
+          <a href="#" class="step-link whatsapp-trigger-link">Unirse ahora &rarr;</a>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="step-card" id="step-card-2">
+          <div class="step-icon-wrapper">
+            <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <line x1="6" y1="8" x2="18" y2="8"></line>
+              <line x1="6" y1="12" x2="18" y2="12"></line>
+              <line x1="6" y1="16" x2="18" y2="16"></line>
+            </svg>
+            <span class="step-number-badge">2</span>
+          </div>
+          <h3 class="step-card-title">2. Adquiere tus Números</h3>
+          <p class="step-card-description">
+            Dentro del grupo compartiremos la información de los números. Escoge tus números de la suerte. Hay dinámicas
+            gratuitas y de bajo costo.
+          </p>
+          <a href="#" class="step-link whatsapp-trigger-link">Ver dinámicas &rarr;</a>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="step-card" id="step-card-3">
+          <div class="step-icon-wrapper">
+            <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="10 8 16 12 10 16 10 8"></polygon>
+            </svg>
+            <span class="step-number-badge">3</span>
+          </div>
+          <h3 class="step-card-title">3. ¡Gana y Recibe tu Premio!</h3>
+          <p class="step-card-description">
+            Si tu número es el ganador, te contactaremos inmediatamente para coordinar la
+            entrega de tu premio.
+          </p>
+          <a href="#" class="step-link whatsapp-trigger-link">¡Gana tu premio! &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Sección Carrusel de Opiniones / Ganadores -->
+  <section class="winners-section" id="ganadores">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Ganadores y Testimonios</h2>
+        <p class="section-subtitle">Conoce a algunos de nuestros ganadores anteriores. Ellos confiaron, participaron y
+          hoy disfrutan de sus premios.</p>
+      </div>
+
+      <div class="carousel-outer-wrapper">
+        <!-- Contenedor del Carrusel -->
+        <div class="carousel-container" id="winners-carousel">
+
+          <!-- Testimonio 1 -->
+          <div class="carousel-card" data-video-src="img/Testimonio1.mp4">
+            <div class="winner-media">
+              <video src="img/Testimonio1.mp4" muted loop autoplay playsinline></video>
+              <button class="play-btn" aria-label="Reproducir video de entrega">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </button>
+            </div>
+            <div class="winner-info">
+              <h3 class="winner-name">Yuliana</h3>
+              <p class="winner-prize">🏆 Ganadora de $500.000</p>
+              <p class="winner-text">
+                "¡No lo podía creer! El grupo de WhatsApp es super confiable y la
+                entrega fue inmediata. ¡Gracias COLRIFAS!"
+              </p>
+            </div>
+          </div>
+
+          <!-- Testimonio 2 -->
+          <div class="carousel-card" data-video-src="img/Testimonio2.mp4">
+            <div class="winner-media">
+              <video src="img/Testimonio2.mp4" muted loop autoplay playsinline></video>
+              <button class="play-btn" aria-label="Reproducir video de entrega">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </button>
+            </div>
+            <div class="winner-info">
+              <h3 class="winner-name">Cesar</h3>
+              <p class="winner-prize">💰 Ganador de $100.000</p>
+              <p class="winner-text">
+                "Es el único sitio de sorteos donde se ve todo transparente. Te envían las
+                pruebas de pago al grupo de inmediato."
+              </p>
+            </div>
+          </div>
+
+          <!-- Testimonio 3 -->
+          <div class="carousel-card">
+            <div class="winner-media">
+              <img src="img/model3.jpg?v=3" alt="Mariana Gómez">
+              <button class="play-btn" aria-label="Reproducir video de entrega">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </button>
+            </div>
+            <div class="winner-info">
+              <h3 class="winner-name">Mariana Gómez</h3>
+              <p class="winner-prize">🥇 Ganadora de Lingote de Oro 10g</p>
+              <p class="winner-text">
+                "Super recomendados. Entré al grupo de WhatsApp por curiosidad y a las dos semanas gané mi primer
+                premio. La comunidad es muy bonita y transparente."
+              </p>
+            </div>
+          </div>
+
+          <!-- Testimonio 4 (Opcional, para dar más movimiento) -->
+          <div class="carousel-card">
+            <div class="winner-media">
+              <img src="img/model4.jpg?v=3" alt="Valeria Ríos">
+              <button class="play-btn" aria-label="Reproducir video de entrega">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </button>
+            </div>
+            <div class="winner-info">
+              <h3 class="winner-name">Valeria Ríos</h3>
+              <p class="winner-prize">👑 Ganadora de Caja Sorpresa Lujo</p>
+              <p class="winner-text">
+                "¡Excelente atención del equipo! Me gané la caja sorpresa y venía llena de regalos espectaculares. Ya
+                estoy participando en el próximo sorteo."
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Botones de Navegación del Carrusel -->
+        <button class="carousel-nav prev" id="carousel-prev" aria-label="Anterior testimonio">
+          &larr;
+        </button>
+        <button class="carousel-nav next" id="carousel-next" aria-label="Siguiente testimonio">
+          &rarr;
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner de Cierre -->
+  <section class="cta-banner-section">
+    <div class="cta-banner-container">
+      <h2 class="cta-banner-title">¿Listo para ser nuestro próximo ganador?</h2>
+      <p class="cta-banner-text">
+        El próximo sorteo empieza pronto. Las plazas para el grupo de WhatsApp son limitadas para garantizar una mejor
+        atención. ¡No te quedes por fuera!
+      </p>
+      <a href="#" class="btn btn-whatsapp btn-lg btn-glow whatsapp-trigger-link" id="cta-bottom-join">
+        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+          fill="currentColor">
+          <path
+            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.458L0 24zm6.59-4.846c1.6.95 3.167 1.453 4.803 1.455 5.513 0 9.998-4.485 10.001-9.998.003-2.671-1.03-5.182-2.91-7.062C16.604 1.67 14.096.638 11.432.637 5.92 .637 1.433 5.12 1.43 10.635c-.001 1.7.443 3.359 1.288 4.793l-.997 3.637 3.73-.978L6.647 19.16l.001-.006zM18.006 14.61c-.328-.165-1.947-.961-2.247-1.07-.3-.109-.52-.163-.739.165-.219.329-.848 1.07-1.039 1.289-.191.219-.383.246-.711.081-.328-.164-1.385-.51-2.638-1.627-.975-.87-1.632-1.944-1.823-2.272-.192-.328-.02-.506.143-.669.148-.147.329-.383.493-.574.164-.192.219-.328.329-.548.11-.219.054-.41-.028-.574-.081-.164-.738-1.777-1.011-2.434-.266-.64-.539-.553-.739-.563-.19-.01-.41-.011-.629-.011-.219 0-.575.082-.876.41-.3.329-1.15 1.122-1.15 2.736 0 1.614 1.177 3.174 1.339 3.393.164.219 2.316 3.537 5.611 4.96.783.338 1.396.54 1.874.693.788.25 1.505.215 2.072.13.632-.094 1.948-.797 2.221-1.567.272-.77.272-1.429.191-1.567-.081-.137-.3-.22-.628-.383z" />
+        </svg>
+        <span>Unirme al Grupo de Sorteos</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Redes y Footer -->
+  <footer class="footer-section" id="redes">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="img/Logo sin fondo con todo.png" alt="COLRIFAS Logo" class="footer-logo-full">
+      </div>
+
+      <p class="footer-tagline">Síguenos en redes sociales y mantente al día con nuestras últimas novedades y
+        promociones.</p>
+
+      <!-- Iconos de Redes Sociales -->
+      <div class="social-icons">
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn"
+          aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn"
+          aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn"
+          aria-label="YouTube">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z">
+            </path>
+            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+          </svg>
+        </a>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <p class="copyright">
+        &copy; 2026 COLRIFAS. Todos los derechos reservados.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Botón Flotante de WhatsApp -->
+  <a href="#" class="whatsapp-floating-btn whatsapp-trigger-link" aria-label="Chatear en WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+      <path
+        d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.458L0 24zm6.59-4.846c1.6.95 3.167 1.453 4.803 1.455 5.513 0 9.998-4.485 10.001-9.998.003-2.671-1.03-5.182-2.91-7.062C16.604 1.67 14.096.638 11.432.637 5.92 .637 1.433 5.12 1.43 10.635c-.001 1.7.443 3.359 1.288 4.793l-.997 3.637 3.73-.978L6.647 19.16l.001-.006zM18.006 14.61c-.328-.165-1.947-.961-2.247-1.07-.3-.109-.52-.163-.739.165-.219.329-.848 1.07-1.039 1.289-.191.219-.383.246-.711.081-.328-.164-1.385-.51-2.638-1.627-.975-.87-1.632-1.944-1.823-2.272-.192-.328-.02-.506.143-.669.148-.147.329-.383.493-.574.164-.192.219-.328.329-.548.11-.219.054-.41-.028-.574-.081-.164-.738-1.777-1.011-2.434-.266-.64-.539-.553-.739-.563-.19-.01-.41-.011-.629-.011-.219 0-.575.082-.876.41-.3.329-1.15 1.122-1.15 2.736 0 1.614 1.177 3.174 1.339 3.393.164.219 2.316 3.537 5.611 4.96.783.338 1.396.54 1.874.693.788.25 1.505.215 2.072.13.632-.094 1.948-.797 2.221-1.567.272-.77.272-1.429.191-1.567-.081-.137-.3-.22-.628-.383z" />
+    </svg>
+  </a>
+
+  <!-- Script Principal -->
+  <script src="script.js"></script>
+</body>
+
+</html>
