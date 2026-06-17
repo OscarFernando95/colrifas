@@ -63,6 +63,33 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e)
   }
 });
 
+// 2.1 MENÚ HAMBURGUESA EN MÓVIL
+const menuToggleBtn = document.getElementById("menu-toggle");
+const navMenu = document.getElementById("nav-menu");
+
+if (menuToggleBtn && navMenu) {
+  menuToggleBtn.addEventListener("click", () => {
+    menuToggleBtn.classList.toggle("active");
+    navMenu.classList.toggle("active");
+    
+    // Bloquear/desbloquear scroll de fondo
+    if (navMenu.classList.contains("active")) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  });
+
+  // Cerrar menú al hacer clic en un enlace de navegación
+  navMenu.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", () => {
+      menuToggleBtn.classList.remove("active");
+      navMenu.classList.remove("active");
+      document.body.style.overflow = "";
+    });
+  });
+}
+
 
 // 3. NAVEGACIÓN DEL CARRUSEL DE OPINIONES / GANADORES
 const carousel = document.getElementById("winners-carousel");

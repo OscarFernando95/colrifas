@@ -358,11 +358,48 @@ button {
   color: var(--text-primary);
   transition: background-color var(--transition-fast), color var(--transition-fast);
   border: 1px solid var(--border-color);
+  flex-shrink: 0;
 }
 
 .theme-toggle-btn:hover {
   background-color: var(--gold-light);
   color: var(--gold-primary);
+}
+
+/* Botón Hamburguesa */
+.menu-toggle-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  flex-shrink: 0;
+}
+
+.hamburger-bar {
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-primary);
+  border-radius: 2px;
+  transition: transform var(--transition-fast), opacity var(--transition-fast), background-color var(--transition-fast);
+}
+
+/* Animación a X del menú */
+.menu-toggle-btn.active .hamburger-bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.menu-toggle-btn.active .hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle-btn.active .hamburger-bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
 }
 
 .sun-icon {
@@ -990,8 +1027,46 @@ html[data-theme="dark"] .moon-icon {
 
 /* Teléfonos y Tablets Pequeñas (max-width: 992px) */
 @media screen and (max-width: 992px) {
+  .menu-toggle-btn {
+    display: flex;
+  }
+
   .nav-menu {
-    display: none; /* Ocultar enlaces de menú en tablets para evitar encimamiento */
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 40px 24px;
+    gap: 24px;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 999;
+    pointer-events: none;
+  }
+
+  .nav-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-link {
+    font-size: 1.25rem;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+    width: 100%;
+  }
+
+  .nav-link::after {
+    display: none;
   }
 
   .hero-container {
@@ -1059,8 +1134,8 @@ html[data-theme="dark"] .moon-icon {
     padding: 0 16px;
   }
   
-  .nav-menu {
-    display: none; /* Ocultar enlaces de menú en celulares por simplicidad o toggle */
+  .btn-nav {
+    display: none; /* Ocultar botón de WhatsApp en el header móvil para evitar colisiones */
   }
 
   .hero-section {
