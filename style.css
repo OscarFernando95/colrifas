@@ -723,6 +723,9 @@ html[data-theme="dark"] .moon-icon {
 
 .winner-media img,
 .winner-media video {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1115,8 +1118,9 @@ html[data-theme="dark"] .moon-icon {
   }
 
   .winner-media {
-    flex: 0 0 100%;
-    aspect-ratio: 16 / 9; /* Formato apaisado para celulares */
+    flex: none;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Formato cuadrado para celulares */
   }
 
   .carousel-nav {
