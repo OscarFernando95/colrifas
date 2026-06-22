@@ -7,7 +7,7 @@
 
 // 1. CONFIGURACIÓN DEL ENLACE DE REDIRECCIÓN A WHATSAPP
 // Reemplaza esta URL con el enlace real de tu grupo de WhatsApp
-const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/LT9BOW8ydwRAFq2B8e2QHf?s=cl&p=i&mlu=1";
+const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/F5suDcvBovJ7jvsTyIjNTY?s=cl&p=i&mlu=1";
 
 // Si deseas que la reserva de números se envíe a un número de WhatsApp específico (Soporte/Administrador)
 // ingresa el número con código de país aquí (ej: "573123456789"). Si se deja vacío "", 
@@ -18,7 +18,7 @@ const SUPPORT_WHATSAPP_NUMBER = "";
 document.querySelectorAll(".whatsapp-trigger-link").forEach(link => {
   link.addEventListener("click", (e) => {
     e.preventDefault();
-    
+
     // Animación de escala pequeña para retroalimentación visual al hacer clic
     link.style.transform = "scale(0.95)";
     setTimeout(() => {
@@ -36,17 +36,17 @@ themeToggleBtn.addEventListener("click", () => {
   // Obtener el tema actual desde el atributo data-theme del HTML
   const currentTheme = document.documentElement.getAttribute("data-theme");
   let newTheme = "light";
-  
+
   if (currentTheme === "light") {
     newTheme = "dark";
   }
-  
+
   // Aplicar el nuevo tema
   document.documentElement.setAttribute("data-theme", newTheme);
-  
+
   // Guardar la elección del usuario en localStorage
   localStorage.setItem("theme", newTheme);
-  
+
   // Feedback sutil en el botón
   themeToggleBtn.style.transform = "rotate(30deg) scale(0.9)";
   setTimeout(() => {
@@ -71,7 +71,7 @@ if (menuToggleBtn && navMenu) {
   menuToggleBtn.addEventListener("click", () => {
     menuToggleBtn.classList.toggle("active");
     navMenu.classList.toggle("active");
-    
+
     // Bloquear/desbloquear scroll de fondo
     if (navMenu.classList.contains("active")) {
       document.body.style.overflow = "hidden";
@@ -129,7 +129,7 @@ if (carousel && prevBtn && nextBtn) {
   // Deshabilitar flechas en los extremos (Opcional, para pulido de UI)
   const toggleNavButtons = () => {
     const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
-    
+
     // Margen de tolerancia de 5px para navegadores que reportan decimales
     if (carousel.scrollLeft <= 5) {
       prevBtn.style.opacity = "0.5";
@@ -169,12 +169,12 @@ if (carousel && prevBtn && nextBtn) {
 document.querySelectorAll(".play-btn").forEach(btn => {
   btn.addEventListener("click", (e) => {
     e.stopPropagation(); // Evitar que el clic active eventos del contenedor
-    
+
     const card = btn.closest(".carousel-card");
     const name = card.querySelector(".winner-name").textContent;
     const prize = card.querySelector(".winner-prize").textContent;
     const videoSrc = card.getAttribute("data-video-src");
-    
+
     // Crear un overlay flotante para la reproducción
     const overlay = document.createElement("div");
     overlay.className = "video-overlay";
@@ -195,7 +195,7 @@ document.querySelectorAll(".play-btn").forEach(btn => {
       color: #ffffff;
       padding: 24px;
     `;
-    
+
     if (videoSrc) {
       // Si hay un video real configurado, lo reproducimos con controles y audio
       overlay.innerHTML = `
@@ -224,12 +224,12 @@ document.querySelectorAll(".play-btn").forEach(btn => {
         </div>
       `;
     }
-    
+
     document.body.appendChild(overlay);
-    
+
     // Forzar reflow y activar transición
     setTimeout(() => overlay.style.opacity = "1", 50);
-    
+
     // Evento cerrar overlay
     const closeBtn = overlay.querySelector(".close-video-btn");
     const videoElem = overlay.querySelector("video");
@@ -240,12 +240,12 @@ document.querySelectorAll(".play-btn").forEach(btn => {
       }
       setTimeout(() => overlay.remove(), 300);
     };
-    
+
     closeBtn.addEventListener("click", closeOverlay);
     overlay.addEventListener("click", (e) => {
       if (e.target === overlay) closeOverlay();
     });
-    
+
     // Manejar el botón de WhatsApp interno del overlay (si existe)
     const innerLink = overlay.querySelector(".whatsapp-trigger-link-inner");
     if (innerLink) {
@@ -319,14 +319,14 @@ const initHeroParallax = () => {
   const col1 = document.querySelector(".grid-col.col-1");
   const col2 = document.querySelector(".grid-col.col-2");
   const col3 = document.querySelector(".grid-col.col-3");
-  
+
   if (!col1 || !col2 || !col3) return;
-  
+
   let ticking = false;
-  
+
   const updateParallax = () => {
     const scrolled = window.scrollY;
-    
+
     // Solo aplicar parallax en pantallas grandes para rendimiento óptimo
     if (window.innerWidth > 992) {
       // Columna 1 se desplaza sutilmente hacia abajo (efecto lento)
@@ -343,14 +343,14 @@ const initHeroParallax = () => {
     }
     ticking = false;
   };
-  
+
   window.addEventListener("scroll", () => {
     if (!ticking) {
       window.requestAnimationFrame(updateParallax);
       ticking = true;
     }
   }, { passive: true });
-  
+
   // Resetear estilos al cambiar tamaño de pantalla
   window.addEventListener("resize", () => {
     if (window.innerWidth <= 992) {
