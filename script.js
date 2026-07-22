@@ -7,7 +7,7 @@
 
 // 1. CONFIGURACIÓN DEL ENLACE DE REDIRECCIÓN A WHATSAPP
 // Reemplaza esta URL con el enlace real de tu grupo de WhatsApp
-const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/F5suDcvBovJ7jvsTyIjNTY?s=cl&p=i&mlu=1";
+const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/FH6AHP4ons85uDnzB0cnPC?mode=gi_t";
 
 // Si deseas que la reserva de números se envíe a un número de WhatsApp específico (Soporte/Administrador)
 // ingresa el número con código de país aquí (ej: "573123456789"). Si se deja vacío "", 
