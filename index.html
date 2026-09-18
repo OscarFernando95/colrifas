@@ -169,9 +169,17 @@
   <!-- Preconectar Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Carga no bloqueante: preload + stylesheet con media swap (solo pesos realmente usados) -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap">
   <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap"
-    rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap"
+    rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap"
+      rel="stylesheet">
+  </noscript>
 
   <!-- Favicon / Estilos -->
   <link rel="icon" type="image/png" href="img/logo-colrifas-completo.png">
@@ -211,7 +219,7 @@
   <header class="navbar">
     <div class="navbar-container">
       <a href="index.html" class="logo" id="nav-logo">
-        <img src="img/logo-colrifas.png" alt="Logo de COLRIFAS, sorteos en efectivo en Colombia" class="logo-img" width="1254" height="1254" loading="eager"> <span class="logo-gold">COLRIFAS</span>
+        <img src="img/logo-colrifas.png" alt="Logo de COLRIFAS, sorteos en efectivo en Colombia" class="logo-img" width="76" height="76" loading="eager"> <span class="logo-gold">COLRIFAS</span>
       </a>
 
       <nav class="nav-menu" id="nav-menu">
@@ -306,26 +314,26 @@
         <div class="capsule-grid">
           <div class="grid-col col-1">
             <div class="capsule-card">
-              <img src="img/ganadora-sorteo-efectivo-1.jpg?v=3" alt="Ganadora feliz del sorteo premium COLRIFAS en Colombia con dinero en efectivo" width="449" height="800" loading="eager">
+              <img src="img/ganadora-sorteo-efectivo-1.jpg?v=3" alt="Ganadora feliz del sorteo premium COLRIFAS en Colombia con dinero en efectivo" width="129" height="230" loading="eager">
             </div>
             <div class="capsule-card">
-              <img src="img/premio-dinero-efectivo-colrifas.jpg" alt="Premios en dinero en efectivo de sorteos transparentes en Colombia" width="600" height="600" loading="eager">
+              <img src="img/premio-dinero-efectivo-colrifas.jpg" alt="Premios en dinero en efectivo de sorteos transparentes en Colombia" width="230" height="230" loading="eager">
             </div>
           </div>
           <div class="grid-col col-2">
             <div class="capsule-card">
-              <img src="img/tabla-resultados-sorteo-colrifas.jpg" alt="Tabla de sorteo con resultados de ganadores y premios de COLRIFAS" width="450" height="800" loading="eager">
+              <img src="img/tabla-resultados-sorteo-colrifas.jpg" alt="Tabla de sorteo con resultados de ganadores y premios de COLRIFAS" width="129" height="230" loading="eager">
             </div>
             <div class="capsule-card">
-              <img src="img/ganadora-sorteo-efectivo-4.jpg?v=3" alt="Ganadora del sorteo de dinero en efectivo COLRIFAS Colombia" width="449" height="800" loading="eager">
+              <img src="img/ganadora-sorteo-efectivo-4.jpg?v=3" alt="Ganadora del sorteo de dinero en efectivo COLRIFAS Colombia" width="129" height="230" loading="eager">
             </div>
           </div>
           <div class="grid-col col-3">
             <div class="capsule-card">
-              <img src="img/ganadora-sorteo-efectivo-3.jpg?v=3" alt="Ganadora de sorteo premium con premios en dinero Colombia COLRIFAS" width="449" height="800" loading="lazy">
+              <img src="img/ganadora-sorteo-efectivo-3.jpg?v=3" alt="Ganadora de sorteo premium con premios en dinero Colombia COLRIFAS" width="129" height="230" loading="lazy">
             </div>
             <div class="capsule-card">
-              <img src="img/comprobantes-pago-ganadores-colrifas.jpg?v=3" alt="Transferencias de dinero a ganadores y prueba de transparencia en sorteos COLRIFAS" width="450" height="800" loading="lazy">
+              <img src="img/comprobantes-pago-ganadores-colrifas.jpg?v=3" alt="Transferencias de dinero a ganadores y prueba de transparencia en sorteos COLRIFAS" width="129" height="230" loading="lazy">
             </div>
           </div>
         </div>
@@ -588,7 +596,7 @@
   <footer class="footer-section" id="redes">
     <div class="footer-container">
       <div class="footer-brand">
-        <img src="img/logo-colrifas-completo.png" alt="Logo completo de COLRIFAS, sorteos en efectivo en Colombia" class="footer-logo-full" width="500" height="500" loading="lazy">
+        <img src="img/logo-colrifas-completo.png" alt="Logo completo de COLRIFAS, sorteos en efectivo en Colombia" class="footer-logo-full" width="78" height="78" loading="lazy">
       </div>
 
       <p class="footer-tagline">Síguenos en redes sociales y mantente al día con nuestras últimas novedades
@@ -643,7 +651,7 @@
   </a>
 
   <!-- Script Principal -->
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 
 </html>
