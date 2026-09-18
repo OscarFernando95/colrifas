@@ -22,8 +22,10 @@
   --bg-card: #ffffff;
   --text-primary: #161719;
   --text-secondary: #5a5c60;
-  --gold-primary: #cca43b; /* Dorado clásico */
-  --gold-secondary: #af8726;
+  --gold-primary: #cca43b; /* Dorado clásico (uso decorativo: fondos, bordes, iconos) */
+  --gold-secondary: #6b5218; /* Solo se usa como color de texto; oscurecido para contraste AA */
+  --gold-text: #8a6a1f; /* Dorado oscurecido para texto legible (4.5:1 AA) sobre fondo claro */
+  --gold-gradient-end: #b8860b;
   --gold-glow: rgba(204, 164, 59, 0.25);
   --gold-light: #f7f3e8;
   --border-color: rgba(204, 164, 59, 0.18);
@@ -45,6 +47,8 @@
     --text-secondary: #a0a0a5;
     --gold-primary: #e5c158; /* Dorado brillante */
     --gold-secondary: #cca43b;
+    --gold-text: #e5c158;
+    --gold-gradient-end: #ffd700;
     --gold-glow: rgba(229, 193, 88, 0.3);
     --gold-light: #252014;
     --border-color: rgba(229, 193, 88, 0.12);
@@ -63,7 +67,9 @@ html[data-theme="light"] {
   --text-primary: #161719;
   --text-secondary: #5a5c60;
   --gold-primary: #cca43b;
-  --gold-secondary: #af8726;
+  --gold-secondary: #6b5218;
+  --gold-text: #8a6a1f;
+  --gold-gradient-end: #b8860b;
   --gold-glow: rgba(204, 164, 59, 0.25);
   --gold-light: #f7f3e8;
   --border-color: rgba(204, 164, 59, 0.18);
@@ -82,6 +88,8 @@ html[data-theme="dark"] {
   --text-secondary: #a0a0a5;
   --gold-primary: #e5c158;
   --gold-secondary: #cca43b;
+  --gold-text: #e5c158;
+  --gold-gradient-end: #ffd700;
   --gold-glow: rgba(229, 193, 88, 0.3);
   --gold-light: #252014;
   --border-color: rgba(229, 193, 88, 0.12);
@@ -206,8 +214,8 @@ button {
 
 /* Textos Especiales */
 .text-gold {
-  color: var(--gold-primary);
-  background: linear-gradient(135deg, var(--gold-primary) 30%, #ffd700 100%);
+  color: var(--gold-text);
+  background: linear-gradient(135deg, var(--gold-text) 30%, var(--gold-gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
@@ -272,7 +280,7 @@ button {
 }
 
 .inline-link {
-  color: var(--gold-primary);
+  color: var(--gold-text);
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -341,7 +349,7 @@ button {
 }
 
 .logo-gold {
-  color: var(--gold-primary);
+  color: var(--gold-text);
 }
 
 .nav-menu {
@@ -399,7 +407,7 @@ button {
 
 .theme-toggle-btn:hover {
   background-color: var(--gold-light);
-  color: var(--gold-primary);
+  color: var(--gold-text);
 }
 
 /* Botón Hamburguesa */
@@ -530,7 +538,7 @@ html[data-theme="dark"] .moon-icon {
 .stat-number {
   font-size: 1.6rem;
   font-weight: 800;
-  color: var(--gold-primary);
+  color: var(--gold-text);
 }
 
 .stat-label {
@@ -694,7 +702,7 @@ html[data-theme="dark"] .moon-icon {
   height: 64px;
   border-radius: 16px;
   background-color: var(--gold-light);
-  color: var(--gold-primary);
+  color: var(--gold-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -734,7 +742,7 @@ html[data-theme="dark"] .moon-icon {
 .step-link {
   font-weight: 700;
   font-size: 0.9rem;
-  color: var(--gold-primary);
+  color: var(--gold-text);
   display: inline-flex;
   align-items: center;
 }
@@ -844,7 +852,7 @@ html[data-theme="dark"] .moon-icon {
 .winner-prize {
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--gold-primary);
+  color: var(--gold-text);
   margin-bottom: 16px;
   letter-spacing: 0.5px;
 }
@@ -878,7 +886,7 @@ html[data-theme="dark"] .moon-icon {
 
 .carousel-nav:hover {
   background-color: var(--gold-light);
-  color: var(--gold-primary);
+  color: var(--gold-text);
   border-color: var(--gold-primary);
 }
 
@@ -994,7 +1002,7 @@ html[data-theme="dark"] .moon-icon {
 }
 
 .footer-nav-link:hover {
-  color: var(--gold-primary);
+  color: var(--gold-text);
 }
 
 .social-icons {
@@ -1020,7 +1028,7 @@ html[data-theme="dark"] .moon-icon {
 .social-icon-btn:hover {
   transform: translateY(-4px);
   background-color: var(--gold-light);
-  color: var(--gold-primary);
+  color: var(--gold-text);
   border-color: var(--gold-primary);
 }
 

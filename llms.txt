@@ -1,0 +1,13 @@
+# COLRIFAS
+
+> Plataforma de sorteos y dinámicas en efectivo en Colombia, operada a través
+> de un grupo oficial de WhatsApp. Sorteos diarios y semanales con premios en
+> dinero, ganador definido por la lotería del día.
+
+## Páginas principales
+- [Inicio](https://dinamicascolrifas.com/): Información general, cómo participar
+  y testimonios de ganadores
+- [Cómo Funciona](https://dinamicascolrifas.com/como-funciona.html): Explicación
+  detallada del proceso de las dinámicas
+- [Preguntas Frecuentes](https://dinamicascolrifas.com/preguntas-frecuentes.html): Dudas comunes sobre el funcionamiento y legitimidad
+- [Términos y Condiciones](https://dinamicascolrifas.com/terminos-y-condiciones.html)

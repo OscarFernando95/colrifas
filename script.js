@@ -32,6 +32,15 @@ document.querySelectorAll(".whatsapp-trigger-link").forEach(link => {
 // 2. ALTERNADOR DE TEMA CLARO Y OSCURO (DARK & LIGHT MODE)
 const themeToggleBtn = document.getElementById("theme-toggle");
 
+// Actualiza el aria-label según el tema actual, describiendo la acción que realizará el botón
+const updateThemeToggleLabel = () => {
+  const currentTheme = document.documentElement.getAttribute("data-theme");
+  const label = currentTheme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro";
+  themeToggleBtn.setAttribute("aria-label", label);
+};
+
+updateThemeToggleLabel();
+
 themeToggleBtn.addEventListener("click", () => {
   // Obtener el tema actual desde el atributo data-theme del HTML
   const currentTheme = document.documentElement.getAttribute("data-theme");
@@ -47,6 +56,8 @@ themeToggleBtn.addEventListener("click", () => {
   // Guardar la elección del usuario en localStorage
   localStorage.setItem("theme", newTheme);
 
+  updateThemeToggleLabel();
+
   // Feedback sutil en el botón
   themeToggleBtn.style.transform = "rotate(30deg) scale(0.9)";
   setTimeout(() => {
@@ -60,6 +71,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e)
   if (!savedTheme) {
     const newTheme = e.matches ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", newTheme);
+    updateThemeToggleLabel();
   }
 });
 
@@ -72,8 +84,12 @@ if (menuToggleBtn && navMenu) {
     menuToggleBtn.classList.toggle("active");
     navMenu.classList.toggle("active");
 
+    const isOpen = navMenu.classList.contains("active");
+    menuToggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    menuToggleBtn.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+
     // Bloquear/desbloquear scroll de fondo
-    if (navMenu.classList.contains("active")) {
+    if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -85,6 +101,8 @@ if (menuToggleBtn && navMenu) {
     link.addEventListener("click", () => {
       menuToggleBtn.classList.remove("active");
       navMenu.classList.remove("active");
+      menuToggleBtn.setAttribute("aria-expanded", "false");
+      menuToggleBtn.setAttribute("aria-label", "Abrir menú");
       document.body.style.overflow = "";
     });
   });
@@ -161,6 +179,26 @@ if (carousel && prevBtn && nextBtn) {
 
   // Inicializar estado de botones
   setTimeout(toggleNavButtons, 200);
+
+  // 3.1 ACTIVAR/PAUSAR VIDEOS SEGÚN VISIBILIDAD EN EL CARRUSEL
+  // Solo el primer video reproduce automáticamente al cargar la página; el resto
+  // (preload="none") se reproduce cuando el usuario navega hasta hacerlo visible
+  // con los botones prev/next (o arrastrando el carrusel).
+  const carouselVideos = carousel.querySelectorAll(".winner-media video");
+  if (carouselVideos.length) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, { root: carousel, threshold: [0, 0.6, 1] });
+
+    carouselVideos.forEach(video => videoObserver.observe(video));
+  }
 }
 
 
