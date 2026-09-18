@@ -215,7 +215,7 @@ document.querySelectorAll(".play-btn").forEach(btn => {
             <p style="font-size: 0.9rem; color: #aaa; max-width: 300px; margin-bottom: 30px;">
               El video completo de la entrega del premio (${prize}) se encuentra disponible en nuestro grupo exclusivo de WhatsApp.
             </p>
-            <a href="#" class="btn btn-whatsapp btn-glow whatsapp-trigger-link-inner" style="width: auto;">
+            <a href="${WHATSAPP_GROUP_URL}" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-glow whatsapp-trigger-link-inner" style="width: auto;">
               <span>Ver video en WhatsApp</span>
             </a>
           </div>
