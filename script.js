@@ -7,7 +7,7 @@
 
 // 1. CONFIGURACIÓN DEL ENLACE DE REDIRECCIÓN A WHATSAPP
 // Reemplaza esta URL con el enlace real de tu grupo de WhatsApp
-const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/FH6AHP4ons85uDnzB0cnPC?mode=gi_t";
+const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/G9SYmPPYsz80um4FezZQlo";
 
 // Si deseas que la reserva de números se envíe a un número de WhatsApp específico (Soporte/Administrador)
 // ingresa el número con código de país aquí (ej: "573123456789"). Si se deja vacío "", 
@@ -352,32 +352,27 @@ const revealOnScroll = () => {
   });
 };
 
-// 6. SCROLL PARALLAX PARA LA GALERÍA DEL HERO (ESTILO APPLE)
+// 6. SCROLL PARALLAX PARA EL VISUAL DEL HERO (ESTILO EDITORIAL, MUY SUTIL)
 const initHeroParallax = () => {
-  const col1 = document.querySelector(".grid-col.col-1");
-  const col2 = document.querySelector(".grid-col.col-2");
-  const col3 = document.querySelector(".grid-col.col-3");
+  const visual = document.querySelector(".hero-visual");
 
-  if (!col1 || !col2 || !col3) return;
+  if (!visual) return;
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) return;
 
   let ticking = false;
 
   const updateParallax = () => {
     const scrolled = window.scrollY;
 
-    // Solo aplicar parallax en pantallas grandes para rendimiento óptimo
+    // Desplazamiento mínimo (efecto de profundidad, no de espectáculo)
+    // Nota: solo se anima el contenedor completo, nunca .hero-visual-accent,
+    // para no pisar con un transform inline su transición de :hover.
     if (window.innerWidth > 992) {
-      // Columna 1 se desplaza sutilmente hacia abajo (efecto lento)
-      col1.style.transform = `translateY(${scrolled * 0.08}px)`;
-      // Columna 2 se desplaza hacia arriba con un offset inicial de 60px
-      col2.style.transform = `translateY(${60 + (scrolled * -0.05)}px)`;
-      // Columna 3 se desplaza más rápido hacia abajo
-      col3.style.transform = `translateY(${scrolled * 0.12}px)`;
+      visual.style.transform = `translateY(${scrolled * 0.04}px)`;
     } else {
-      // Resetear estilos en responsive móvil/tablet
-      col1.style.transform = "";
-      col2.style.transform = "";
-      col3.style.transform = "";
+      visual.style.transform = "";
     }
     ticking = false;
   };
@@ -389,12 +384,9 @@ const initHeroParallax = () => {
     }
   }, { passive: true });
 
-  // Resetear estilos al cambiar tamaño de pantalla
   window.addEventListener("resize", () => {
     if (window.innerWidth <= 992) {
-      col1.style.transform = "";
-      col2.style.transform = "";
-      col3.style.transform = "";
+      visual.style.transform = "";
     }
   });
 };
