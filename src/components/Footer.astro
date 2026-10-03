@@ -1,0 +1,50 @@
+---
+import { NAV, SITE } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container inner">
+    <div class="col brand-col">
+      <a class="brand" href="/" aria-label="COLRIFAS, ir al inicio"><img src="/img/logo-colrifas-completo.png" alt="Logo de COLRIFAS" width="78" height="78" /></a>
+      <p>Sorteos en efectivo en Colombia, definidos por la lotería oficial del día. Para mayores de edad.</p>
+    </div>
+    <nav class="col" aria-label="Pie de página">
+      <span class="title">Sitio</span>
+      <a href="/">Inicio</a>
+      {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+    <div class="col">
+      <span class="title">Síguenos</span>
+      <div class="social">
+        <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram de COLRIFAS"><svg aria-hidden="true"><use href="#i-ig"></use></svg></a>
+        <a href={SITE.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook de COLRIFAS"><svg aria-hidden="true"><use href="#i-fb"></use></svg></a>
+        <a href={SITE.social.tiktok} target="_blank" rel="noopener noreferrer" aria-label="TikTok de COLRIFAS"><svg aria-hidden="true"><use href="#i-tt"></use></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="container legal">
+    <span>© {year} COLRIFAS. Todos los derechos reservados.</span>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--obsidian); color: var(--on-dark-muted); padding-block: 64px 28px; position: relative; overflow: hidden; }
+  .footer::before { content: ''; position: absolute; left: 50%; top: 0; width: min(520px, 80%); height: 1px; transform: translateX(-50%); background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .inner { display: grid; gap: 36px; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .inner { grid-template-columns: 1.6fr 1fr 1fr; } }
+  .col { display: grid; gap: 10px; align-content: start; }
+  .brand { display: inline-flex; text-decoration: none; }
+  .brand img { width: 78px; height: 78px; object-fit: contain; }
+  .brand-col p { max-width: 36ch; font-size: 0.95rem; }
+  .title { font-family: var(--font-display); font-weight: 600; color: var(--on-dark); font-size: 0.95rem; }
+  .col > a:not(.brand) { text-decoration: none; min-height: 32px; display: inline-flex; align-items: center; transition: color 0.2s ease; }
+  .social { display: flex; gap: 10px; }
+  .social a { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); transition: background-color 0.2s ease, color 0.2s ease; }
+  .social svg { width: 20px; height: 20px; }
+  .legal { margin-top: 44px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.85rem; }
+  @media (hover: hover) {
+    .col > a:hover { color: var(--gold); }
+    .social a:hover { background: rgba(229, 193, 88, 0.14); color: var(--gold); }
+  }
+</style>

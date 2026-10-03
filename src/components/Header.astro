@@ -1,0 +1,112 @@
+---
+import { NAV, SITE } from '../data/site';
+const norm = (p: string) => p.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const current = norm(Astro.url.pathname);
+---
+
+<header class="site-header" id="site-header">
+  <div class="bar glass-dark">
+    <a class="brand" href="/" aria-label="COLRIFAS, ir al inicio"><img src="/img/logo-colrifas.png" alt="" width="38" height="38" />COLRIFAS</a>
+
+    <nav class="nav" id="nav-menu" aria-label="Principal">
+      {NAV.map((item) => (
+        <a class="nav-link" href={item.href} aria-current={current === norm(item.href) ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="actions">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Cambiar a modo oscuro">
+        <svg class="i-sun" aria-hidden="true"><use href="#i-sun"></use></svg>
+        <svg class="i-moon" aria-hidden="true"><use href="#i-moon"></use></svg>
+      </button>
+      <a id="btn-header-join" class="join whatsapp-trigger-link" href={SITE.whatsappUrl} target="_blank" rel="noopener noreferrer">Entrar</a>
+      <button class="icon-btn menu-btn" id="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: fixed; z-index: 100; left: 0; right: 0; top: 0;
+    padding: calc(env(safe-area-inset-top, 0px) + 12px) clamp(12px, 3vw, 28px) 0;
+    pointer-events: none;
+  }
+  .bar {
+    pointer-events: auto; max-width: 1240px; margin-inline: auto; height: 60px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding-inline: 18px 10px; border-radius: 20px; color: var(--on-dark);
+    transition: background-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s var(--ease-out);
+  }
+  .glass-dark {
+    background: rgba(12, 13, 16, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    backdrop-filter: blur(18px) saturate(1.4);
+  }
+  :global(.site-header.is-scrolled) .bar {
+    background: rgba(12, 13, 16, 0.78);
+    box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.6);
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+    font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; letter-spacing: 0.03em;
+  }
+  .brand img { width: 38px; height: 38px; object-fit: contain; }
+
+  .nav { display: none; gap: 30px; }
+  .nav-link { position: relative; text-decoration: none; font-weight: 500; font-size: 0.95rem; color: var(--on-dark-muted); padding-block: 8px; transition: color 0.2s ease; }
+  .nav-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 2px; height: 2px; border-radius: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.25s var(--ease-out); }
+  .nav-link[aria-current='page'] { color: var(--on-dark); }
+  .nav-link[aria-current='page']::after { transform: scaleX(1); }
+
+  .actions { display: flex; align-items: center; gap: 8px; }
+  .icon-btn {
+    width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; cursor: pointer;
+    background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--on-dark);
+    transition: background-color 0.2s ease;
+  }
+  .icon-btn svg { width: 20px; height: 20px; }
+  .i-moon { display: none; }
+  :global([data-theme='dark']) .i-sun { display: none; }
+  :global([data-theme='dark']) .i-moon { display: block; }
+  .join {
+    min-height: 44px; display: inline-flex; align-items: center; padding: 0 20px; border-radius: 14px; text-decoration: none;
+    font-family: var(--font-display); font-weight: 600; color: #16161a;
+    background: linear-gradient(160deg, var(--gold-light), var(--gold) 50%, var(--gold-deep));
+    box-shadow: inset 2px 2px 5px rgba(255, 246, 210, 0.7), inset -3px -3px 7px rgba(125, 95, 23, 0.35);
+  }
+  .menu-btn { display: grid; align-content: center; gap: 6px; }
+  .menu-btn span { width: 18px; height: 2px; border-radius: 2px; background: currentColor; transition: transform 0.3s var(--ease-out); }
+  .menu-btn[aria-expanded='true'] span:first-child { transform: translateY(4px) rotate(45deg); }
+  .menu-btn[aria-expanded='true'] span:last-child { transform: translateY(-4px) rotate(-45deg); }
+
+  @media (hover: hover) {
+    .nav-link:hover { color: var(--on-dark); }
+    .nav-link:hover::after { transform: scaleX(1); }
+    .icon-btn:hover { background: rgba(255, 255, 255, 0.12); }
+  }
+
+  @media (max-width: 879px) {
+    .nav {
+      position: fixed; left: clamp(12px, 3vw, 28px); right: clamp(12px, 3vw, 28px); top: calc(env(safe-area-inset-top, 0px) + 80px);
+      display: grid; gap: 4px; padding: 14px; border-radius: 22px;
+      background: rgba(12, 13, 16, 0.86); border: 1px solid rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+      opacity: 0; transform: translateY(-10px) scale(0.98); visibility: hidden; pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.3s var(--ease-out), visibility 0s linear 0.3s;
+    }
+    .nav.is-open { opacity: 1; transform: none; visibility: visible; pointer-events: auto; transition: opacity 0.25s ease, transform 0.3s var(--ease-out); }
+    .nav-link { font-size: 1.15rem; padding: 14px 12px; border-radius: 12px; }
+    .nav-link::after { display: none; }
+    .nav-link[aria-current='page'] { background: rgba(229, 193, 88, 0.12); color: var(--gold); }
+  }
+  @media (min-width: 880px) {
+    .nav { display: flex; }
+    .menu-btn { display: none; }
+  }
+  @media (max-width: 380px) {
+    .join { padding: 0 14px; }
+  }
+</style>

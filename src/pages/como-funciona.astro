@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Steps from '../components/Steps.astro';
+import FinalCta from '../components/FinalCta.astro';
+import { SITE } from '../data/site';
+
+const example = [4, 7, 1, 9];
+const winners = [
+  { label: 'Dos últimas', pos: 2 },
+  { label: 'Dos primeras', pos: 0 },
+  { label: 'Dos del medio', pos: 1 },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Cómo funciona', item: `${SITE.url}/como-funciona.html` },
+    ],
+  },
+];
+---
+
+<Base
+  title="¿Cómo funciona COLRIFAS? | Sorteos en efectivo en Colombia"
+  description="Así funcionarán los sorteos en efectivo de COLRIFAS: cómo entras gratis, cómo se define el ganador con la lotería oficial del día y cómo se entrega cada premio."
+  path="/como-funciona.html"
+  jsonLd={jsonLd}
+>
+  <PageHero
+    crumb="Cómo funciona"
+    title="Cómo funcionan nuestros sorteos en efectivo."
+    lead="Un proceso simple que puedes seguir de principio a fin, sin depender de nuestra palabra."
+  />
+
+  <Steps
+    title="De la entrada al premio, en cuatro pasos."
+    steps={[
+      { title: 'Entra gratis al grupo', text: 'El grupo oficial de WhatsApp no cuesta nada. Ahí se publica cada dinámica.' },
+      { title: 'Escoge tu número', text: 'Cada dinámica anuncia sus reglas, su valor y la lotería con la que se juega.' },
+      { title: 'La lotería define el resultado', text: 'El número sale de la lotería oficial del día, un resultado público.' },
+      { title: 'Recibes tu premio', text: 'Te escribimos, te transferimos y publicamos el comprobante en el grupo.' },
+    ]}
+  />
+
+  <section class="section" aria-labelledby="ganadores-title">
+    <div class="container split">
+      <div class="section-head">
+        <h2 id="ganadores-title" class="h2" data-split>Cómo salen los ganadores.</h2>
+        <p class="lead" data-reveal>De un solo número de la lotería salen varios ganadores. Cada dinámica indica con qué cifras se gana.</p>
+      </div>
+      <figure class="example glass" data-reveal>
+        <figcaption><span>Lotería del día</span><b>Ejemplo</b></figcaption>
+        <div class="digits" aria-label={`Resultado de ejemplo: ${example.join('')}`} role="img">
+          {example.map((d) => <span>{d}</span>)}
+        </div>
+        <ul class="wins" data-stagger>
+          {winners.map((w) => (
+            <li class="clay"><small>{w.label}</small><b>{`${example[w.pos]}${example[w.pos + 1]}`}</b></li>
+          ))}
+        </ul>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section verify" aria-labelledby="verificar-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="verificar-title" class="h2" data-split>Compruébalo tú mismo.</h2>
+      </div>
+      <ol class="checks" data-stagger>
+        <li class="clay"><b>1</b><p>Consulta el resultado oficial de la lotería del día en su página o en los medios.</p></li>
+        <li class="clay"><b>2</b><p>Compáralo con las cifras ganadoras que indica la dinámica.</p></li>
+        <li class="clay"><b>3</b><p>Revisa el comprobante del pago que se publica en el grupo.</p></li>
+      </ol>
+      <p class="more" data-reveal>¿Más dudas? Revisa las <a href="/preguntas-frecuentes.html">preguntas frecuentes</a> o los <a href="/terminos-y-condiciones.html">términos y condiciones</a>.</p>
+    </div>
+  </section>
+
+  <FinalCta title="¿Listo para el primer sorteo?" />
+</Base>
+
+<style>
+  .split { display: grid; gap: 40px; align-items: center; }
+  @media (min-width: 960px) { .split { grid-template-columns: 1fr 1fr; } .split .section-head { margin-bottom: 0; } }
+  .example { margin: 0; border-radius: var(--radius-lg); padding: clamp(24px, 4vw, 40px); display: grid; gap: 22px; justify-items: center; }
+  figcaption { display: flex; gap: 10px; align-items: center; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+  figcaption b { font-size: 0.72rem; letter-spacing: 0; text-transform: none; color: var(--gold-text); border: 1px solid var(--gold-deep); border-radius: 999px; padding: 2px 9px; }
+  .digits { display: flex; gap: 10px; }
+  .digits span {
+    width: clamp(54px, 9vw, 74px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center;
+    font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.2rem); color: #16161a;
+    background: radial-gradient(circle at 32% 26%, #fff6d2 0%, #ebc860 32%, #b88a22 78%);
+    box-shadow: 0 12px 22px -10px rgba(204, 164, 59, 0.8), inset -4px -5px 10px rgba(0, 0, 0, 0.2);
+  }
+  .wins { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }
+  .wins li { border-radius: var(--radius-md); padding: 16px 8px; display: grid; gap: 4px; justify-items: center; text-align: center; }
+  .wins small { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .wins b { font-family: var(--font-display); font-size: clamp(1.8rem, 3.4vw, 2.4rem); line-height: 1; color: var(--gold-text); }
+  .verify { padding-top: 0; }
+  .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+  @media (min-width: 860px) { .checks { grid-template-columns: repeat(3, 1fr); } }
+  .checks li { padding: 26px; display: grid; gap: 12px; align-content: start; }
+  .checks b { font-family: var(--font-display); font-size: 2.2rem; line-height: 1; color: var(--gold-deep); }
+  .checks p { color: var(--muted); }
+  .more { margin-top: 28px; color: var(--muted); }
+  .more a { color: var(--gold-text); font-weight: 600; }
+</style>

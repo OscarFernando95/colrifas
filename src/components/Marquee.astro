@@ -1,0 +1,25 @@
+---
+const words = ['Lotería oficial', 'Dos últimas', 'Pagos a la vista', 'Dos primeras', 'Ingreso gratis', 'Dos del medio'];
+const row = [...words, ...words, ...words];
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="track" data-marquee="-1">
+    {row.map((w) => <span>{w}<i></i></span>)}
+  </div>
+  <div class="track alt" data-marquee="1">
+    {row.slice().reverse().map((w) => <span>{w}<i></i></span>)}
+  </div>
+</div>
+
+<style>
+  .marquee { overflow: hidden; padding-block: 18px; display: grid; gap: 6px; rotate: -2deg; margin-block: 10px; }
+  .track { display: flex; width: max-content; gap: 0; will-change: transform; }
+  .track span {
+    display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap;
+    font-family: var(--font-display); font-weight: 700; font-size: clamp(2.2rem, 6vw, 4.6rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink);
+  }
+  .track span i { width: 0.42em; height: 0.42em; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #fff4c8 0%, #e5c158 35%, #a87f1d 80%); flex-shrink: 0; }
+  .alt span { color: transparent; -webkit-text-stroke: 1.5px var(--gold-deep); }
+  @supports not (-webkit-text-stroke: 1px black) { .alt span { color: var(--gold-text); } }
+</style>
