@@ -1,0 +1,44 @@
+---
+import type { Faq } from '../data/faq';
+
+interface Props { items: Faq[]; idPrefix?: string }
+const { items, idPrefix = 'faq' } = Astro.props;
+---
+
+<div class="faq glass" data-stagger>
+  {items.map((f, i) => (
+    <div class="item">
+      <h3>
+        <button class="q" type="button" aria-expanded="false" aria-controls={`${idPrefix}-a${i}`} id={`${idPrefix}-q${i}`}>
+          <span>{f.q}</span><i aria-hidden="true"></i>
+        </button>
+      </h3>
+      <div class="a" id={`${idPrefix}-a${i}`} role="region" aria-labelledby={`${idPrefix}-q${i}`}>
+        <div class="a-in"><p>{f.a}</p></div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .faq { border-radius: var(--radius-lg); padding: 8px clamp(16px, 3vw, 32px); }
+  .item + .item { border-top: 1px solid var(--line); }
+  .item h3 { font-size: 1rem; }
+  .q {
+    width: 100%; min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 18px;
+    padding: 18px 2px; background: none; border: 0; cursor: pointer; text-align: left;
+    font-family: var(--font-display); font-weight: 600; font-size: clamp(1.05rem, 1.8vw, 1.2rem); color: var(--ink);
+    transition: color 0.2s ease;
+  }
+  .q i { position: relative; flex-shrink: 0; width: 34px; height: 34px; border-radius: 12px; background: var(--clay-bg); box-shadow: var(--clay-shadow); transition: transform 0.35s var(--ease-out); }
+  .q i::before, .q i::after { content: ''; position: absolute; left: 10px; top: 16px; width: 14px; height: 2px; border-radius: 2px; background: var(--gold-deep); }
+  .q i::after { transform: rotate(90deg); transition: transform 0.35s var(--ease-out); }
+  .q[aria-expanded='true'] i { transform: rotate(180deg); }
+  .q[aria-expanded='true'] i::after { transform: rotate(0deg); }
+  /* Cerrado por defecto solo con JavaScript; sin él, todas las respuestas quedan visibles (útil para Google). */
+  :global(.js) .a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s var(--ease-out); }
+  :global(.js) .item:global(.is-open) .a { grid-template-rows: 1fr; }
+  .a-in { overflow: hidden; }
+  .a p { color: var(--muted); padding: 0 2px 20px; max-width: 62ch; }
+  @media (hover: hover) { .q:hover { color: var(--gold-text); } }
+</style>

@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Rules from '../components/Rules.astro';
+import Marquee from '../components/Marquee.astro';
+import Steps from '../components/Steps.astro';
+import FaqList from '../components/FaqList.astro';
+import FinalCta from '../components/FinalCta.astro';
+import { FAQS } from '../data/faq';
+import { SITE } from '../data/site';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${SITE.url}/#organization`,
+    name: SITE.name,
+    url: SITE.url,
+    logo: `${SITE.url}${SITE.logo}`,
+    description: 'Sorteos en efectivo en Colombia con resultados definidos por la lotería oficial del día. Lanzamiento muy pronto.',
+    areaServed: 'CO',
+    sameAs: Object.values(SITE.social),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE.url}/#website`,
+    url: `${SITE.url}/`,
+    name: SITE.name,
+    inLanguage: 'es-CO',
+    publisher: { '@id': `${SITE.url}/#organization` },
+  },
+];
+---
+
+<Base
+  title="COLRIFAS | Sorteos en efectivo en Colombia · Muy pronto"
+  description="Sorteos en efectivo con resultados de la lotería oficial del día. Entra gratis al grupo de WhatsApp y entérate primero del lanzamiento."
+  path="/"
+  jsonLd={jsonLd}
+>
+  <Hero />
+  <Rules />
+  <Marquee />
+  <Steps />
+  <section class="section" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="faq-title" class="h2" data-split>Lo que todos preguntan.</h2>
+      </div>
+      <FaqList items={FAQS.filter((f) => f.home)} idPrefix="home-faq" />
+      <div style="margin-top:18px" data-reveal>
+        <a class="link-arrow" href="/preguntas-frecuentes.html">Ver todas las preguntas <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+  <FinalCta />
+</Base>

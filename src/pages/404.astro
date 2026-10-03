@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+---
+
+<Base
+  title="Página no encontrada | COLRIFAS"
+  description="Esta página no existe. Vuelve al inicio de COLRIFAS, sorteos en efectivo en Colombia."
+  path="/404.html"
+  noindex
+>
+  <section class="nf on-dark">
+    <div class="container inner">
+      <h1 class="title" data-intro data-split>Este número no salió.</h1>
+      <p class="sub" data-intro>La página que buscas no existe o cambió de dirección.</p>
+      <div class="actions" data-intro>
+        <a class="btn-gold" href="/">Volver al inicio</a>
+        <WhatsAppButton label="Entrar al grupo" micro="" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { min-height: 100svh; display: grid; align-items: center; color: var(--on-dark); padding-block: calc(var(--header-h) + 48px) 80px;
+    background: radial-gradient(ellipse 60% 60% at 70% 40%, rgba(229, 193, 88, 0.18), transparent 70%), var(--obsidian); }
+  .inner { display: grid; gap: 22px; justify-items: start; }
+  .title { font-weight: 600; font-size: clamp(2.6rem, 7vw, 5rem); line-height: 1; letter-spacing: -0.035em; }
+  .sub { color: var(--on-dark-muted); font-size: 1.15rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+</style>

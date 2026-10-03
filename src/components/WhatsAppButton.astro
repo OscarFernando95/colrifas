@@ -1,0 +1,33 @@
+---
+import { SITE } from '../data/site';
+
+interface Props {
+  id?: string;
+  label?: string;
+  micro?: string;
+  class?: string;
+}
+
+const { id, label = 'Entrar gratis al grupo', micro = 'Se abre WhatsApp', class: extra = '' } = Astro.props;
+---
+
+<div class:list={['wa-cta', extra]}>
+  <a
+    id={id}
+    class="btn-gold whatsapp-trigger-link"
+    href={SITE.whatsappUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-cta
+  >
+    <svg aria-hidden="true"><use href="#i-wa"></use></svg>
+    <i class="spin" aria-hidden="true"></i>
+    <span class="lbl">{label}</span>
+  </a>
+  {micro && <span class="btn-micro">{micro}</span>}
+</div>
+
+<style>
+  .wa-cta { display: grid; gap: 10px; justify-items: start; }
+  .wa-cta.center { justify-items: center; }
+</style>

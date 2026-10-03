@@ -1,0 +1,13 @@
+# COLRIFAS
+
+> Sorteos y dinámicas en efectivo en Colombia, operados a través de un grupo
+> oficial de WhatsApp. Lanzamiento próximo: aún no se han realizado sorteos.
+> El número ganador se define con el resultado de la lotería oficial del día
+> (por ejemplo, con las dos últimas, las dos primeras o las dos cifras del
+> medio, según indique cada dinámica). Entrar al grupo es gratis.
+
+## Páginas principales
+- [Inicio](https://dinamicascolrifas.com/): Qué es COLRIFAS, cómo se define el ganador y cómo entrar al grupo
+- [Cómo funciona](https://dinamicascolrifas.com/como-funciona.html): Proceso paso a paso y cómo verificar un resultado
+- [Preguntas frecuentes](https://dinamicascolrifas.com/preguntas-frecuentes.html): Costos, fechas, pagos y confiabilidad
+- [Términos y condiciones](https://dinamicascolrifas.com/terminos-y-condiciones.html): Reglas de participación

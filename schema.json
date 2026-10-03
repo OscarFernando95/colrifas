@@ -24,7 +24,7 @@
       "@type": "SoftwareApplication",
       "@id": "https://colrifas.com/#whatsappgroup",
       "name": "Grupo Oficial COLRIFAS WhatsApp",
-      "description": "Grupo oficial de WhatsApp para participar en sorteos premium con premios en dinero en efectivo. 100% gratuito y transparente.",
+      "description": "Grupo oficial de WhatsApp de COLRIFAS para sorteos con premios en dinero en efectivo. Ingreso gratuito. Lanzamiento muy pronto.",
       "applicationCategory": "SocialNetworking",
       "operatingSystem": "iOS, Android",
       "offers": {
@@ -33,100 +33,16 @@
         "priceCurrency": "COP",
         "availability": "https://schema.org/InStock"
       },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "5",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
       "author": {
         "@id": "https://colrifas.com/#organization"
-      },
-      "review": [
-        {
-          "@type": "Review",
-          "author": {
-            "@type": "Person",
-            "name": "Yuliana"
-          },
-          "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": "5",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
-          "reviewBody": "¡No lo podía creer! El grupo de WhatsApp es super confiable y la entrega fue inmediata. ¡Gracias COLRIFAS!",
-          "description": "Ganadora de $500.000"
-        },
-        {
-          "@type": "Review",
-          "author": {
-            "@type": "Person",
-            "name": "Cesar"
-          },
-          "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": "5",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
-          "reviewBody": "Es el único sitio de sorteos donde se ve todo transparente. Te envían las pruebas de pago al grupo de inmediato.",
-          "description": "Ganador de $100.000"
-        },
-        {
-          "@type": "Review",
-          "author": {
-            "@type": "Person",
-            "name": "Luis Alejandro"
-          },
-          "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": "5",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
-          "reviewBody": "Me encanta la organizacion del grupo y la puntualidad en la entrega de los premios. COLRIFAS super recomendados.",
-          "description": "Ganador de $500.000"
-        },
-        {
-          "@type": "Review",
-          "author": {
-            "@type": "Person",
-            "name": "Johan"
-          },
-          "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": "5",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
-          "reviewBody": "Una de las cosas que mas me gusto de COLRIFAS fue la atención brindada y la organización de todo el equipo. Gracias, me salvaron el día",
-          "description": "Ganador de $500.000"
-        },
-        {
-          "@type": "Review",
-          "author": {
-            "@type": "Person",
-            "name": "Jeimy"
-          },
-          "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": "5",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
-          "reviewBody": "Las dinámicas de COLRIFAS me parecen muy buenas, son muy serios y cumplidos. ¡Gracias por mi premio!",
-          "description": "Ganador de $100.000"
-        }
-      ]
+      }
     },
     {
       "@type": "ImageObject",
       "@id": "https://colrifas.com/img/model1.jpg",
       "url": "https://colrifas.com/img/model1.jpg",
-      "name": "Ganadora feliz del sorteo premium COLRIFAS en Colombia con dinero en efectivo",
-      "description": "Imagen de ganadora sonriente mostrando su premio en dinero del sorteo COLRIFAS"
+      "name": "Imagen de campaña de COLRIFAS, sorteos en efectivo en Colombia",
+      "description": "Imagen de marca de la campaña de lanzamiento de COLRIFAS"
     },
     {
       "@type": "ImageObject",
@@ -134,34 +50,6 @@
       "url": "https://colrifas.com/img/gold_money.jpg",
       "name": "Premios en dinero en efectivo de sorteos transparentes en Colombia",
       "description": "Dinero en efectivo como premio de los sorteos COLRIFAS Colombia"
-    },
-    {
-      "@type": "ImageObject",
-      "@id": "https://colrifas.com/img/raffle_grid.jpg",
-      "url": "https://colrifas.com/img/raffle_grid.jpg",
-      "name": "Tabla de sorteo con resultados de ganadores y premios de COLRIFAS",
-      "description": "Tabla de resultados del sorteo mostrando los ganadores y premios entregados"
-    },
-    {
-      "@type": "ImageObject",
-      "@id": "https://colrifas.com/img/model4.jpg",
-      "url": "https://colrifas.com/img/model4.jpg",
-      "name": "Ganadora del sorteo de dinero en efectivo COLRIFAS Colombia",
-      "description": "Ganadora presentando su premio de dinero en efectivo"
-    },
-    {
-      "@type": "ImageObject",
-      "@id": "https://colrifas.com/img/model3.jpg",
-      "url": "https://colrifas.com/img/model3.jpg",
-      "name": "Ganadora de sorteo premium con premios en dinero Colombia COLRIFAS",
-      "description": "Ganadora feliz con su premio del sorteo premium COLRIFAS"
-    },
-    {
-      "@type": "ImageObject",
-      "@id": "https://colrifas.com/img/transfers.jpg",
-      "url": "https://colrifas.com/img/transfers.jpg",
-      "name": "Transferencias de dinero a ganadores y prueba de transparencia en sorteos COLRIFAS",
-      "description": "Comprobantes de transferencias de dinero a los ganadores como prueba de transparencia"
     }
   ]
 }

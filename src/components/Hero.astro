@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import LotteryDraw from './LotteryDraw.astro';
+import WhatsAppButton from './WhatsAppButton.astro';
+import modelo from '../assets/modelo-colrifas.jpg';
+---
+
+<section class="hero on-dark" id="inicio" aria-labelledby="hero-title">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="container grid">
+    <div class="text">
+      <h1 id="hero-title" class="title" data-intro data-split>Sorteos en efectivo. <span class="g">Muy pronto.</span></h1>
+      <p class="sub" data-intro>El ganador sale de la lotería oficial del día. Entrar es gratis.</p>
+      <div data-intro><WhatsAppButton id="hero-cta-main" /></div>
+    </div>
+
+    <div class="visual" id="hero-visual">
+      <div class="presenter" data-intro data-presenter>
+        <span class="halo" aria-hidden="true"></span>
+        <div class="figure">
+          <div class="arch">
+            <Image
+              src={modelo}
+              alt="Imagen de campaña de COLRIFAS"
+              widths={[360, 560, 800]}
+              sizes="(min-width: 900px) 360px, 72vw"
+              format="webp"
+              quality={80}
+              loading="eager"
+              fetchpriority="high"
+              class="photo"
+            />
+            <span class="shade" aria-hidden="true"></span>
+          </div>
+          <span class="frame-line" aria-hidden="true"></span>
+        </div>
+      </div>
+      <LotteryDraw />
+    </div>
+  </div>
+  <a class="scroll-cue" href="#reglas" aria-label="Bajar a cómo funciona" data-intro><span></span></a>
+</section>
+
+<style>
+  .hero {
+    position: relative; overflow: hidden; color: var(--on-dark); isolation: isolate;
+    min-height: min(100svh, 980px); display: grid; align-items: center;
+    padding-block: calc(var(--header-h) + 40px) 90px;
+    background:
+      radial-gradient(ellipse 90% 40% at 50% 120%, rgba(229, 193, 88, 0.14), transparent 70%),
+      linear-gradient(180deg, #0f1013 0%, #0a0b0d 100%);
+  }
+  .glow {
+    position: absolute; z-index: -1; width: 70vmax; height: 70vmax; right: -18vmax; top: 50%; translate: 0 -50%;
+    background: radial-gradient(circle, rgba(229, 193, 88, 0.24) 0%, transparent 62%);
+  }
+  .grid { display: grid; gap: 48px; }
+  @media (min-width: 900px) { .grid { grid-template-columns: 1fr 1.08fr; align-items: center; gap: 24px; } }
+  .text { display: grid; gap: 24px; justify-items: start; align-content: center; }
+  .title { font-weight: 600; font-size: clamp(3rem, 6.6vw, 5.4rem); line-height: 0.98; letter-spacing: -0.035em; }
+  .title .g { display: block; color: var(--gold); }
+  .sub { color: var(--on-dark-muted); font-size: clamp(1.08rem, 1.6vw, 1.25rem); max-width: 30ch; }
+
+  /* La presentadora detrás de la mesa del sorteo */
+  .visual { position: relative; display: grid; justify-items: center; }
+  .presenter { position: relative; width: min(100%, 360px); }
+  .halo {
+    position: absolute; z-index: -1; left: 50%; top: 42%; width: 150%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%;
+    background: radial-gradient(circle, rgba(229, 193, 88, 0.34) 0%, rgba(229, 193, 88, 0.1) 40%, transparent 66%);
+    opacity: 0.75; transition: opacity 0.6s var(--ease-out), scale 0.8s var(--ease-out);
+  }
+  :global(.visual.is-lit) .halo { opacity: 1; scale: 1.08; }
+  .figure { position: relative; }
+  /* Marco en arco: el borde lo pone el marco, la foto conserva su fondo original */
+  .arch {
+    position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 999px 999px 26px 26px;
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(229, 193, 88, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    background: #121214;
+  }
+  .arch :global(.photo) {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
+    filter: saturate(0.92) contrast(1.04) brightness(0.94); transform-origin: 46% 32%; transform: scale(1.04);
+  }
+  .shade {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      linear-gradient(180deg, transparent 52%, rgba(10, 11, 13, 0.55) 72%, rgba(10, 11, 13, 0.95) 100%),
+      radial-gradient(ellipse 80% 60% at 50% 30%, transparent 50%, rgba(10, 11, 13, 0.35) 100%);
+  }
+  /* Segundo filete dorado por fuera del arco, con un destello que lo recorre */
+  .frame-line {
+    position: absolute; inset: -9px; pointer-events: none; border-radius: 999px 999px 32px 32px;
+    border: 1px solid rgba(229, 193, 88, 0.28);
+    -webkit-mask: linear-gradient(180deg, #000 55%, transparent 85%); mask: linear-gradient(180deg, #000 55%, transparent 85%);
+  }
+  .frame-line::after {
+    content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px;
+    background: conic-gradient(from var(--a, 0deg), transparent 0deg, rgba(255, 238, 180, 0.95) 24deg, transparent 60deg) border-box;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    animation: trace 6s linear infinite;
+  }
+  @property --a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+  @keyframes trace { to { --a: 360deg; } }
+  /* La mesa de balotas se monta sobre la parte baja de la figura, que ya está desvanecida */
+  .visual :global(.stage) { margin-top: calc(-1 * clamp(110px, 14vw, 170px)); }
+
+  .scroll-cue {
+    position: absolute; left: 50%; bottom: 22px; translate: -50% 0; width: 28px; height: 46px; border-radius: 16px;
+    border: 1.5px solid rgba(255, 255, 255, 0.28); display: grid; justify-items: center; padding-top: 8px;
+  }
+  .scroll-cue span { width: 4px; height: 9px; border-radius: 4px; background: var(--gold); animation: cue 1.8s var(--ease-out) infinite; }
+  @keyframes cue { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(14px); opacity: 0; } 100% { opacity: 0; } }
+  @media (max-width: 899px) {
+    .scroll-cue { display: none; }
+    .presenter { width: min(72%, 300px); }
+  }
+</style>

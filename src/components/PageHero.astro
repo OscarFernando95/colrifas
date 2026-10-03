@@ -1,0 +1,30 @@
+---
+interface Props { title: string; lead?: string; crumb: string }
+const { title, lead, crumb } = Astro.props;
+---
+
+<section class="page-hero on-dark" aria-labelledby="page-title">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="container inner">
+    <nav class="crumbs" aria-label="Ruta de navegación" data-intro>
+      <a href="/">Inicio</a><span aria-hidden="true">/</span><span aria-current="page">{crumb}</span>
+    </nav>
+    <h1 id="page-title" class="title" data-intro data-split>{title}</h1>
+    {lead && <p class="lead-dark" data-intro>{lead}</p>}
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative; overflow: hidden; isolation: isolate; color: var(--on-dark);
+    padding-block: calc(var(--header-h) + 72px) clamp(64px, 9vw, 110px);
+    background: linear-gradient(180deg, #0f1013 0%, #0a0b0d 100%);
+  }
+  .glow { position: absolute; z-index: -1; width: 60vmax; height: 60vmax; right: -20vmax; top: -20vmax; background: radial-gradient(circle, rgba(229, 193, 88, 0.22) 0%, transparent 62%); }
+  .inner { display: grid; gap: 20px; justify-items: start; }
+  .crumbs { display: flex; gap: 10px; font-size: 0.88rem; color: var(--on-dark-muted); }
+  .crumbs a { color: var(--on-dark-muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--gold); }
+  .title { font-weight: 600; font-size: clamp(2.5rem, 6.4vw, 4.8rem); line-height: 1; letter-spacing: -0.035em; max-width: 16ch; }
+  .lead-dark { color: var(--on-dark-muted); font-size: clamp(1.05rem, 1.6vw, 1.2rem); max-width: 52ch; }
+</style>

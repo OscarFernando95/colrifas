@@ -1,0 +1,40 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+
+interface Props { title?: string; micro?: string }
+const {
+  title = 'El primer sorteo se anuncia en el grupo.',
+  micro = 'Se abre WhatsApp · Puedes salir cuando quieras',
+} = Astro.props;
+---
+
+<section class="final on-dark" aria-labelledby="cierre-title">
+  <div class="balls" aria-hidden="true">
+    <span class="b b1"></span><span class="b b2"></span><span class="b b3"></span><span class="b b4"></span>
+  </div>
+  <div class="container inner">
+    <h2 id="cierre-title" class="title" data-split>{title}</h2>
+    <div data-reveal><WhatsAppButton id="cta-bottom-join" micro={micro} class="center" /></div>
+  </div>
+</section>
+
+<style>
+  .final {
+    position: relative; overflow: hidden; isolation: isolate; color: var(--on-dark); text-align: center;
+    padding-block: clamp(100px, 14vw, 170px);
+    background: radial-gradient(ellipse 60% 70% at 50% 0%, rgba(229, 193, 88, 0.2), transparent 70%), var(--obsidian);
+  }
+  .inner { display: grid; gap: 28px; justify-items: center; }
+  .title { font-weight: 600; font-size: clamp(2.3rem, 6vw, 4.6rem); line-height: 1; letter-spacing: -0.03em; max-width: 15ch; }
+  .balls { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+  .b {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle at 32% 26%, #fff6d2 0%, #ebc860 30%, #a87f1d 70%, #4a360a 100%);
+    box-shadow: inset -8px -10px 20px rgba(0, 0, 0, 0.38), 0 24px 40px -18px rgba(229, 193, 88, 0.55);
+  }
+  .b1 { width: clamp(70px, 9vw, 130px); aspect-ratio: 1; left: 6%; top: 18%; }
+  .b2 { width: clamp(40px, 5vw, 70px); aspect-ratio: 1; left: 16%; bottom: 14%; opacity: 0.8; }
+  .b3 { width: clamp(80px, 11vw, 160px); aspect-ratio: 1; right: 5%; top: 30%; }
+  .b4 { width: clamp(34px, 4vw, 56px); aspect-ratio: 1; right: 20%; top: 10%; opacity: 0.7; }
+  @media (max-width: 640px) { .b1, .b3 { opacity: 0.35; } }
+</style>

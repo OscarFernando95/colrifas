@@ -1,0 +1,102 @@
+---
+// Sorteo de ejemplo: 4 balotas → ganadores con las dos últimas, las dos primeras y las dos del medio.
+const example = [4, 7, 1, 9];
+const pairs = [
+  { pos: 2, label: 'Dos últimas' },
+  { pos: 0, label: 'Dos primeras' },
+  { pos: 1, label: 'Dos del medio' },
+];
+const pairOf = (pos: number) => `${example[pos]}${example[pos + 1]}`;
+const reel = Array.from({ length: 40 }, (_, k) => k % 10);
+---
+
+<div
+  class="stage"
+  id="draw-stage"
+  role="img"
+  aria-label={`Ejemplo: la lotería del día da ${example.join('')}. Ganan el ${pairOf(2)} con las dos últimas cifras, el ${pairOf(0)} con las dos primeras y el ${pairOf(1)} con las dos del medio.`}
+  data-intro
+>
+  <div class="stage-head" aria-hidden="true"><span class="stage-label">Lotería del día</span><span class="stage-tag">Ejemplo</span></div>
+  <div class="balls" aria-hidden="true">
+    <span class="pair"></span>
+    {example.map((d) => (
+      <div class="slot">
+        <div class="ball">
+          <div class="face">
+            <div class="reel" data-digit={d} style={`transform: translateY(-${(10 + d) * 2.5}%)`}>
+              {reel.map((n) => <span>{n}</span>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="chips" aria-hidden="true">
+    {pairs.map((p) => (
+      <div class="chip done" data-pos={p.pos}><small>{p.label}</small><b>{pairOf(p.pos)}</b></div>
+    ))}
+  </div>
+  <p class="stage-cap" aria-hidden="true">De un solo número salen los ganadores.</p>
+</div>
+
+<style>
+  .stage {
+    --ball: clamp(64px, 9.4vw, 124px); --gap: clamp(10px, 1.6vw, 18px);
+    position: relative; display: grid; gap: 26px; justify-items: center; align-content: center; padding-block: 16px;
+  }
+  .stage::before {
+    content: ''; position: absolute; inset: -38% -14%; pointer-events: none;
+    background: repeating-radial-gradient(circle at 50% 42%, rgba(229, 193, 88, 0.09) 0 1px, transparent 1px 34px);
+    -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 0%, transparent 62%);
+    mask-image: radial-gradient(circle at 50% 42%, #000 0%, transparent 62%);
+  }
+  .stage > * { position: relative; }
+  .stage-head {
+    display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 14px; border-radius: 999px;
+    background: rgba(10, 11, 13, 0.62); border: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  }
+  .stage-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-dark); }
+  .stage-tag { font-size: 0.72rem; font-weight: 600; color: var(--gold); border: 1px solid rgba(229, 193, 88, 0.5); border-radius: 999px; padding: 2px 9px; }
+  .balls { position: relative; display: flex; gap: var(--gap); padding-block: 12px; }
+  .balls::after {
+    content: ''; position: absolute; left: 6%; right: 6%; bottom: -14px; height: 22px; border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(229, 193, 88, 0.35), transparent 70%); filter: blur(6px);
+  }
+  .slot { transition: filter 0.45s var(--ease-out), transform 0.45s var(--ease-out); }
+  :global(.slot.dim) { filter: brightness(0.32) saturate(0.6); transform: scale(0.92); }
+  .ball {
+    width: var(--ball); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; position: relative;
+    background: radial-gradient(circle at 32% 26%, #fff6d2 0%, #ebc860 30%, #a87f1d 70%, #4a360a 100%);
+    box-shadow: inset -8px -10px 20px rgba(0, 0, 0, 0.38), inset 6px 6px 14px rgba(255, 246, 210, 0.25), 0 22px 34px -14px rgba(229, 193, 88, 0.6);
+  }
+  .ball::after { content: ''; position: absolute; top: 9%; left: 18%; width: 30%; height: 18%; border-radius: 50%; background: rgba(255, 255, 255, 0.55); filter: blur(3px); transform: rotate(-24deg); pointer-events: none; }
+  .face {
+    width: 60%; aspect-ratio: 1; border-radius: 50%; background: #fbf7ea; overflow: hidden; position: relative; box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.18);
+    font-family: var(--font-display); font-weight: 700; color: #16161a; font-size: calc(var(--ball) * 0.36); line-height: 1;
+  }
+  .reel { position: absolute; left: 0; top: 0; width: 100%; height: 4000%; display: flex; flex-direction: column; }
+  .reel span { height: 2.5%; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+  .pair {
+    --pos: 2; position: absolute; z-index: 2; top: 2px; bottom: 2px; left: -10px; pointer-events: none;
+    width: calc(var(--ball) * 2 + var(--gap) + 20px); border: 2px solid var(--gold); border-radius: 999px;
+    box-shadow: 0 0 0 5px rgba(229, 193, 88, 0.1), 0 0 34px rgba(229, 193, 88, 0.45);
+    opacity: 0; transform: translateX(calc(var(--pos) * (var(--ball) + var(--gap))));
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s var(--ease-out);
+  }
+  :global(.pair.on) { opacity: 1; }
+  .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; max-width: 480px; }
+  .chip {
+    border-radius: 18px; padding: 13px 6px; display: grid; gap: 4px; justify-items: center; text-align: center;
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    opacity: 0.55; transition: opacity 0.35s var(--ease-out), border-color 0.35s var(--ease-out), background-color 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+  }
+  .chip small { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-dark-muted); line-height: 1.3; }
+  .chip b { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1; color: var(--on-dark); font-variant-numeric: tabular-nums; }
+  :global(.chip.active) { opacity: 1; border-color: var(--gold); background: rgba(229, 193, 88, 0.14); transform: translateY(-4px); }
+  :global(.chip.active b), :global(.chip.done b) { color: var(--gold); }
+  :global(.chip.done) { opacity: 1; }
+  .stage-cap { font-size: 0.88rem; color: var(--on-dark-muted); text-align: center; }
+</style>
