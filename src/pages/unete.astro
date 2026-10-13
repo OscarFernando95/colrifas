@@ -1,0 +1,249 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import modelo from '../assets/modelo-colrifas.jpg';
+import { SITE } from '../data/site';
+
+const perks = [
+  'Dinámicas diarias y semanales con premios en efectivo',
+  'Pagos publicados con su comprobante en el grupo',
+  'Participa desde cualquier ciudad de Colombia',
+];
+
+// Destellos dorados que suben por el fondo (posición y tiempos fijos para que el HTML no cambie entre builds).
+const sparks = [
+  { x: 8, s: 5, d: 0, t: 9 }, { x: 18, s: 3, d: 3.5, t: 11 }, { x: 29, s: 6, d: 6, t: 10 },
+  { x: 41, s: 3, d: 1.5, t: 12 }, { x: 55, s: 5, d: 4.5, t: 9.5 }, { x: 66, s: 4, d: 0.8, t: 11 },
+  { x: 77, s: 6, d: 5.2, t: 10 }, { x: 88, s: 3, d: 2.4, t: 12 }, { x: 94, s: 5, d: 7, t: 9 },
+];
+---
+
+<Base
+  title="Únete a la comunidad | COLRIFAS"
+  description="Entra gratis al grupo de WhatsApp de COLRIFAS."
+  path="/unete.html"
+  noindex
+  bare
+>
+  <section class="link-page on-dark" aria-labelledby="unete-title">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="sparks" aria-hidden="true">
+      {sparks.map((s) => <span class="spark" style={`--x:${s.x}%;--s:${s.s}px;--d:${s.d}s;--t:${s.t}s`}></span>)}
+    </div>
+
+    <div class="card">
+      <span class="pill" data-intro>¡Únete gratis!</span>
+
+      <div class="avatar" data-intro>
+        <span class="trace" aria-hidden="true"></span>
+        <div class="disc">
+          <Image
+            src={modelo}
+            alt="COLRIFAS"
+            width={720}
+            format="webp"
+            quality={85}
+            loading="eager"
+            fetchpriority="high"
+            class="photo"
+          />
+        </div>
+      </div>
+
+      <p class="eyebrow" data-intro>Dinámicas COLRIFAS</p>
+      <h1 id="unete-title" class="title" data-intro>Únete a la <span class="g">comunidad</span></h1>
+      <p class="sub" data-intro>Entra gratis a nuestro grupo de WhatsApp y entérate primero de todo.</p>
+
+      <div class="perks" data-intro>
+        <h2 class="perks-title">¿Qué encuentras?</h2>
+        <ul>
+          {perks.map((text) => (
+            <li>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="actions" data-intro>
+        <WhatsAppButton id="unete-cta" label="¡Quiero unirme!" micro="" class="center" />
+        <a class="btn-ghost" href={SITE.url}>
+          <span>Ir a la página web</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  :global(body) { background: var(--obsidian); }
+
+  .link-page {
+    position: relative; overflow: hidden; isolation: isolate; color: var(--on-dark);
+    min-height: 100svh; display: grid; place-items: center;
+    padding: 56px 18px calc(env(safe-area-inset-bottom, 0px) + 40px);
+    background:
+      radial-gradient(ellipse 90% 40% at 50% 120%, rgba(229, 193, 88, 0.16), transparent 70%),
+      linear-gradient(180deg, #0f1013 0%, #0a0b0d 100%);
+  }
+  .glow {
+    position: absolute; z-index: -1; width: 90vmax; height: 90vmax; left: 50%; top: 38%; translate: -50% -50%;
+    background: radial-gradient(circle, rgba(229, 193, 88, 0.22) 0%, transparent 60%);
+  }
+
+  /* Tarjeta de cristal con filete dorado */
+  .card {
+    position: relative; width: 100%; max-width: 420px;
+    display: grid; justify-items: center; text-align: center; gap: 0;
+    padding: 64px 24px 28px; border-radius: 32px;
+    background: linear-gradient(160deg, rgba(30, 31, 37, 0.82) 0%, rgba(16, 17, 21, 0.9) 100%);
+    border: 1px solid rgba(229, 193, 88, 0.38);
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.85), 0 0 60px -20px rgba(229, 193, 88, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3);
+  }
+
+  .pill {
+    position: absolute; left: 50%; top: 0; translate: -50% -50%; white-space: nowrap;
+    padding: 11px 22px; border-radius: 999px;
+    font-family: var(--font-display); font-weight: 700; font-size: 0.86rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #16161a;
+    background: linear-gradient(160deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-deep) 100%);
+    box-shadow: 0 10px 24px -8px rgba(204, 164, 59, 0.75), inset 2px 2px 5px rgba(255, 246, 210, 0.7), inset -3px -4px 8px rgba(125, 95, 23, 0.3);
+  }
+
+  /* Foto redonda con aro dorado y destello que lo recorre (misma idea del arco del inicio) */
+  .avatar { position: relative; width: 132px; aspect-ratio: 1; margin-bottom: 20px; }
+  .avatar::before {
+    content: ''; position: absolute; z-index: -1; inset: -34px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(229, 193, 88, 0.34) 0%, rgba(229, 193, 88, 0.08) 45%, transparent 68%);
+  }
+  .disc {
+    position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 50%; background: #121214;
+    box-shadow: 0 0 0 2px rgba(229, 193, 88, 0.85), 0 18px 36px -14px rgba(0, 0, 0, 0.85);
+  }
+  .disc :global(.photo) {
+    width: 100%; height: 100%; object-fit: cover; object-position: 47% 22%;
+    transform: scale(1.55); transform-origin: 47% 33%;
+    filter: saturate(0.95) contrast(1.04);
+  }
+  .trace {
+    position: absolute; inset: -9px; border-radius: 50%; pointer-events: none;
+    border: 1px solid rgba(229, 193, 88, 0.28);
+  }
+  .trace::after {
+    content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1.5px;
+    background: conic-gradient(from var(--a, 0deg), transparent 0deg, rgba(255, 238, 180, 0.95) 24deg, transparent 60deg) border-box;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    animation: trace 6s linear infinite;
+  }
+  @property --a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+  @keyframes trace { to { --a: 360deg; } }
+
+  .eyebrow {
+    font-family: var(--font-display); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .title {
+    margin-top: 10px; font-weight: 600; font-size: clamp(2.2rem, 9vw, 2.8rem); line-height: 1.02; letter-spacing: -0.035em;
+  }
+  .title .g { display: block; color: var(--gold); }
+  .sub { margin-top: 16px; color: var(--on-dark-muted); font-size: 1.08rem; max-width: 26ch; text-wrap: balance; }
+
+  /* Caja de "qué encuentras": filete punteado dorado, como en el diseño de referencia */
+  .perks {
+    width: 100%; margin-top: 24px; padding: 18px 18px 20px; border-radius: 22px; text-align: left;
+    background: rgba(229, 193, 88, 0.06); border: 1.5px dashed rgba(229, 193, 88, 0.45);
+  }
+  .perks-title {
+    font-family: var(--font-display); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); text-align: center; margin-bottom: 14px;
+  }
+  .perks ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .perks li { display: flex; gap: 12px; align-items: flex-start; font-size: 0.98rem; line-height: 1.4; color: var(--on-dark); }
+  .perks li svg {
+    flex-shrink: 0; width: 22px; height: 22px; padding: 4px; margin-top: 1px; border-radius: 50%; color: #16161a;
+    background: linear-gradient(160deg, var(--gold-light), var(--gold-deep));
+  }
+
+  .actions { width: 100%; display: grid; gap: 14px; margin-top: 24px; }
+  .note { margin-top: 18px; font-size: 0.84rem; color: var(--on-dark-muted); }
+  .actions :global(.wa-cta) { justify-items: stretch; }
+  .actions :global(.btn-gold) { width: 100%; }
+
+  /* Botón secundario: cristal oscuro con filete dorado */
+  .btn-ghost {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 56px; padding: 14px 24px; border-radius: 18px; text-decoration: none;
+    font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; line-height: 1.2; color: var(--on-dark);
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(229, 193, 88, 0.4);
+    transition: transform 0.12s var(--ease-out), background-color 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
+  }
+  .btn-ghost svg { width: 20px; height: 20px; transition: transform 0.2s var(--ease-out); }
+  .btn-ghost:active { transform: scale(0.97); }
+  @media (hover: hover) {
+    .btn-ghost:hover { background: rgba(229, 193, 88, 0.12); border-color: var(--gold); }
+    .btn-ghost:hover svg { transform: translateX(4px); }
+  }
+
+  /* ---------- Movimiento llamativo ----------
+     Usa las propiedades individuales translate/scale para no chocar con la entrada de GSAP (que usa transform). */
+  .sparks { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .spark {
+    position: absolute; left: var(--x); bottom: -12px; width: var(--s); height: var(--s); border-radius: 50%; opacity: 0;
+    background: radial-gradient(circle, #fff3c4 0%, var(--gold) 55%, transparent 72%);
+    box-shadow: 0 0 12px 2px rgba(229, 193, 88, 0.6);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .spark { animation: rise var(--t) linear var(--d) infinite; }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(0.6); opacity: 0; }
+      12% { opacity: 0.95; }
+      100% { transform: translateY(-105svh) scale(1.2); opacity: 0; }
+    }
+
+    /* La foto flota y su halo respira */
+    .avatar { animation: float 4.2s ease-in-out infinite; }
+    @keyframes float { 50% { translate: 0 -8px; } }
+    .avatar::before { animation: breathe 3.4s ease-in-out infinite; }
+    @keyframes breathe { 50% { scale: 1.18; opacity: 0.7; } }
+
+    /* La etiqueta late */
+    .pill { animation: beat 2.6s ease-in-out infinite; }
+    @keyframes beat { 50% { scale: 1.08; } }
+
+    /* "comunidad" con reflejo dorado que lo recorre */
+    .title .g {
+      background: linear-gradient(100deg, var(--gold-deep) 25%, #fff6d0 45%, var(--gold-light) 55%, var(--gold-deep) 75%) 0 0 / 260% 100%;
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+      animation: shimmer 3.6s linear infinite;
+    }
+    @keyframes shimmer { to { background-position: -260% 0; } }
+
+    /* Botón principal: ondas que invitan a tocar y un brillo que lo cruza */
+    .actions :global(.btn-gold)::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+      animation: ping 2.2s ease-out infinite;
+    }
+    @keyframes ping {
+      0% { box-shadow: 0 0 0 0 rgba(242, 215, 126, 0.7); }
+      80%, 100% { box-shadow: 0 0 0 16px rgba(242, 215, 126, 0); }
+    }
+    .actions :global(.btn-gold)::after {
+      content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+      background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.6) 50%, transparent 62%) 160% 0 / 250% 100% no-repeat;
+      animation: sweep 3.2s ease-in-out 1s infinite;
+    }
+    @keyframes sweep { 0% { background-position: 160% 0; } 45%, 100% { background-position: -60% 0; } }
+
+    /* Los visos de la lista se encienden uno tras otro */
+    .perks li svg { animation: tick 4.5s ease-in-out infinite; }
+    .perks li:nth-child(2) svg { animation-delay: 0.5s; }
+    .perks li:nth-child(3) svg { animation-delay: 1s; }
+    @keyframes tick { 0%, 18%, 100% { scale: 1; } 8% { scale: 1.28; } }
+  }
+</style>
