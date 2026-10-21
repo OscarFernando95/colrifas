@@ -4,7 +4,8 @@ export const SITE = {
   locale: 'es_CO',
   // Único lugar donde vive el enlace del grupo: todos los botones lo leen de aquí.
   whatsappUrl: 'https://chat.whatsapp.com/G9SYmPPYsz80um4FezZQlo',
-  gtmId: 'GTM-WZCX9K8X',
+  // Contenedores de Google Tag Manager: se cargan todos en cada página.
+  gtmIds: ['GTM-WZCX9K8X', 'GTM-T3S7C6KH'],
   ogImage: '/img/og-colrifas.jpg',
   logo: '/img/logo-colrifas-completo.png',
   social: {
