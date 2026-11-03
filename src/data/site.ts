@@ -3,7 +3,7 @@ export const SITE = {
   url: 'https://dinamicascolrifas.com',
   locale: 'es_CO',
   // Único lugar donde vive el enlace del grupo: todos los botones lo leen de aquí.
-  whatsappUrl: 'https://chat.whatsapp.com/ESR0QDfwnsYBKSpywHjwBQ',
+  whatsappUrl: 'https://chat.whatsapp.com/ESR0QDfwnsYBKSpywHjwBQ?s=cl&p=a&iam=2',
   // Contenedores de Google Tag Manager: se cargan todos en cada página.
   gtmIds: ['GTM-WZCX9K8X', 'GTM-T3S7C6KH'],
   ogImage: '/img/og-colrifas.jpg',
