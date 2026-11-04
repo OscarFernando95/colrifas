@@ -9,3 +9,9 @@ dist/
 
 # Fotos originales sin procesar (muy pesadas para el repositorio)
 img/*.JPG.jpeg
+
+# Variables locales
+.env
+.env.*
+!.env.example
+.vercel
