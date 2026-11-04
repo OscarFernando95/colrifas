@@ -1,7 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "astro",
-  "buildCommand": "astro build",
-  "outputDirectory": "dist",
-  "rewrites": [{ "source": "/unete", "destination": "/unete.html" }]
+  "rewrites": [
+    { "source": "/unete", "destination": "/unete/index.html" },
+    { "source": "/unete.html", "destination": "/unete/index.html" },
+    { "source": "/como-funciona.html", "destination": "/como-funciona/index.html" },
+    { "source": "/preguntas-frecuentes.html", "destination": "/preguntas-frecuentes/index.html" },
+    { "source": "/terminos-y-condiciones.html", "destination": "/terminos-y-condiciones/index.html" }
+  ]
 }

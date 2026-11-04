@@ -1,0 +1,66 @@
+---
+import content from '../data/content.json';
+
+const { draws, nextDraw } = content;
+const fmt = (iso: string) =>
+  new Intl.DateTimeFormat('es-CO', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${iso}T00:00:00Z`));
+const showNext = !!nextDraw.date;
+const visible = draws.length > 0 || showNext;
+---
+
+{visible && (
+  <section class="section" id="sorteos" aria-labelledby="sorteos-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="sorteos-title" class="h2" data-split>
+          {draws.length > 0 ? `${draws.length} ${draws.length === 1 ? 'sorteo realizado' : 'sorteos realizados'}.` : 'Próximo sorteo.'}
+        </h2>
+        {draws.length > 0 && <p class="lead" data-reveal>Cada resultado, con su evidencia.</p>}
+      </div>
+
+      {showNext && (
+        <article class="next clay" data-reveal>
+          <small>Próximo sorteo</small>
+          <b>{fmt(nextDraw.date)}</b>
+          {nextDraw.prize && <span>{nextDraw.prize}</span>}
+          {nextDraw.note && <p>{nextDraw.note}</p>}
+        </article>
+      )}
+
+      <div class="draws">
+        {draws.map((d) => (
+          <article class="draw clay">
+            <header>
+              <b>{fmt(d.date)}</b>
+              {d.prize && <span>{d.prize}</span>}
+            </header>
+            {d.winner && <p>Ganó: {d.winner}</p>}
+            {d.images.length > 0 && (
+              <div class="shots">
+                {d.images.map((src) => (
+                  <a href={src} target="_blank" rel="noopener noreferrer">
+                    <img src={src} alt={`Evidencia del sorteo del ${fmt(d.date)}`} loading="lazy" decoding="async" />
+                  </a>
+                ))}
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .next { padding: 24px; display: grid; gap: 6px; margin-bottom: 24px; max-width: 520px; }
+  .next small { color: var(--gold-text); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  .next b { font-size: 1.6rem; font-family: var(--font-display); }
+  .next p { color: var(--muted); }
+  .draws { display: grid; gap: 18px; }
+  .draw { padding: 22px; display: grid; gap: 10px; }
+  .draw header { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+  .draw header b { font-family: var(--font-display); font-size: 1.25rem; }
+  .draw header span, .draw p { color: var(--muted); }
+  .shots { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .shots img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 14px; display: block; }
+</style>
