@@ -4,6 +4,7 @@ import { PRIZE_KEYS, PRIZE_LABELS, type Draw, type NextDraw } from '../lib/conte
 import { fmtDate, money, pairOf } from '../lib/format';
 
 const draws = content.draws as Draw[];
+const total = Math.max((content as { drawsTotal?: number }).drawsTotal ?? draws.length, draws.length);
 const nextDraw = content.nextDraw as NextDraw | null;
 const visible = draws.length > 0 || !!nextDraw;
 ---
@@ -13,9 +14,11 @@ const visible = draws.length > 0 || !!nextDraw;
     <div class="container">
       <div class="section-head">
         <h2 id="sorteos-title" class="h2" data-split>
-          {draws.length > 0 ? `${draws.length} ${draws.length === 1 ? 'sorteo realizado' : 'sorteos realizados'}.` : 'Próximo sorteo.'}
+          {total > 0 ? `${total} ${total === 1 ? 'sorteo realizado' : 'sorteos realizados'}.` : 'Próximo sorteo.'}
         </h2>
-        {draws.length > 0 && <p class="lead" data-reveal>Cada resultado, con su evidencia.</p>}
+        {draws.length > 0 && (
+          <p class="lead" data-reveal>{total > draws.length ? `Los ${draws.length} más recientes, con su evidencia.` : 'Cada resultado, con su evidencia.'}</p>
+        )}
       </div>
 
       {nextDraw && (
@@ -57,7 +60,7 @@ const visible = draws.length > 0 || !!nextDraw;
             {d.images.length > 0 && (
               <div class="shots">
                 {d.images.map((src) => (
-                  <a href={src} target="_blank" rel="noopener noreferrer">
+                  <a href={src} target="_blank" rel="noopener noreferrer" data-lightbox={`sorteo-${d.id}`} data-caption={`Sorteo del ${fmtDate(d.date)}`}>
                     <img src={src} alt={`Evidencia del sorteo del ${fmtDate(d.date)}`} loading="lazy" decoding="async" />
                   </a>
                 ))}
@@ -87,5 +90,8 @@ const visible = draws.length > 0 || !!nextDraw;
   .draw header b { font-family: var(--font-display); font-size: 1.25rem; }
   .draw header span, .draw p { color: var(--muted); }
   .shots { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-  .shots img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 14px; display: block; }
+  .shots a { display: block; overflow: hidden; border-radius: 14px; cursor: zoom-in; }
+  .shots a:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 3px; }
+  .shots img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  @media (hover: hover) { .shots a:hover img { transform: scale(1.07); } }
 </style>

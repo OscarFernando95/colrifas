@@ -1,0 +1,80 @@
+---
+// Visor de imágenes a pantalla completa. Lo abren las miniaturas con data-lightbox (ver Sorteos y Testimonios).
+---
+
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Visor de imágenes" hidden>
+  <div class="lb-backdrop"></div>
+  <figure class="lb-stage">
+    <div class="lb-frame">
+      <img class="lb-img" alt="" draggable="false" />
+      <span class="lb-shine" aria-hidden="true"></span>
+    </div>
+    <figcaption class="lb-cap" hidden></figcaption>
+  </figure>
+  <button class="lb-btn lb-close" type="button" aria-label="Cerrar visor">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+  </button>
+  <button class="lb-btn lb-prev" type="button" aria-label="Imagen anterior">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+  </button>
+  <button class="lb-btn lb-next" type="button" aria-label="Imagen siguiente">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+  </button>
+  <div class="lb-count" aria-live="polite"></div>
+</div>
+
+<script>
+  import '../scripts/lightbox';
+</script>
+
+<style>
+  .lb { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; color: #f5f4ef; }
+  .lb[hidden] { display: none; }
+  .lb-backdrop {
+    position: absolute; inset: 0;
+    background: radial-gradient(120% 90% at 50% 40%, rgba(40, 32, 12, 0.82), rgba(6, 6, 8, 0.92));
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  }
+  .lb-stage { position: relative; margin: 0; display: grid; justify-items: center; gap: 16px; padding: 64px 16px 72px; max-width: 100vw; }
+  .lb-frame {
+    position: relative; overflow: hidden; border-radius: 22px; line-height: 0; touch-action: pan-y;
+    box-shadow: 0 32px 90px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(229, 193, 88, 0.4), 0 0 70px rgba(229, 193, 88, 0.18);
+    will-change: transform;
+  }
+  .lb-img { display: block; max-width: min(92vw, 1100px); max-height: 74vh; width: auto; height: auto; object-fit: contain; user-select: none; background: #111; }
+  /* Destello dorado que cruza la foto al abrir o cambiar */
+  .lb-shine {
+    position: absolute; inset: 0; pointer-events: none; transform: translateX(-120%);
+    background: linear-gradient(105deg, transparent 35%, rgba(255, 233, 160, 0.35) 50%, transparent 65%);
+  }
+  .lb-cap {
+    max-width: min(92vw, 640px); text-align: center; font-size: 0.98rem; line-height: 1.4; color: #e9e6dc;
+    padding: 8px 16px; border-radius: 99px; background: rgba(255, 255, 255, 0.09); border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  }
+  .lb-btn {
+    position: absolute; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+    color: #f5f4ef; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .lb-btn[hidden] { display: none; }
+  .lb-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .lb-btn:hover { background: #e5c158; color: #16161a; border-color: #e5c158; transform: scale(1.08); }
+  .lb-btn:focus-visible { outline: 2px solid #f2d77e; outline-offset: 3px; }
+  .lb-close { top: max(14px, env(safe-area-inset-top)); right: 14px; }
+  .lb-prev, .lb-next { top: 50%; margin-top: -24px; }
+  .lb-prev { left: 14px; }
+  .lb-next { right: 14px; }
+  .lb-count {
+    position: absolute; top: max(24px, calc(env(safe-area-inset-top) + 10px)); left: 50%; transform: translateX(-50%);
+    font-size: 0.9rem; letter-spacing: 0.08em; color: #cfcabb;
+  }
+  @media (max-width: 640px) {
+    .lb-prev, .lb-next { top: auto; bottom: 18px; margin-top: 0; }
+    .lb-prev { left: calc(50% - 60px); }
+    .lb-next { right: calc(50% - 60px); }
+    .lb-img { max-height: 64vh; }
+  }
+</style>

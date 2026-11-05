@@ -16,7 +16,7 @@ const items = content.testimonials as Testimonial[];
         {items.map((t) => (
           <figure class="card clay">
             {t.image && (
-              <a href={t.image} target="_blank" rel="noopener noreferrer">
+              <a href={t.image} target="_blank" rel="noopener noreferrer" data-lightbox="testimonios" data-caption={[t.name, t.text].filter(Boolean).join(' · ').slice(0, 160)}>
                 <img src={t.image} alt={t.name ? `Evidencia de ${t.name}` : 'Evidencia de un pago'} loading="lazy" decoding="async" />
               </a>
             )}
@@ -34,7 +34,10 @@ const items = content.testimonials as Testimonial[];
   @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, 1fr); } }
   .card { margin: 0; padding: 18px; display: grid; gap: 14px; align-content: start; }
-  .card img { width: 100%; max-height: 420px; object-fit: cover; border-radius: 14px; display: block; }
+  .card a { display: block; overflow: hidden; border-radius: 14px; cursor: zoom-in; }
+  .card a:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 3px; }
+  .card img { width: 100%; max-height: 420px; object-fit: cover; display: block; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  @media (hover: hover) { .card a:hover img { transform: scale(1.05); } }
   blockquote { margin: 0; font-size: 1.05rem; line-height: 1.5; }
   figcaption { color: var(--gold-text); font-weight: 600; }
 </style>

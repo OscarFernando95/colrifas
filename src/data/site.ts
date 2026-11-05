@@ -8,7 +8,7 @@ export const SITE = {
   whatsappUrl: content.whatsappUrl,
   // Contenedores de Google Tag Manager: se cargan todos en cada página.
   gtmIds: ['GTM-WZCX9K8X', 'GTM-T3S7C6KH'],
-  ogImage: '/img/og-colrifas.jpg',
+  ogImage: '/img/og-colrifas-v2.jpg',
   logo: '/img/logo-colrifas-completo.png',
   social: {
     instagram: 'https://www.instagram.com/_colrifas_/',

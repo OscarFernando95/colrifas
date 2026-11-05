@@ -54,6 +54,8 @@
     ['first2', 'Dos primeras cifras'],
     ['middle2', 'Dos del medio'],
   ];
+  const MAX_DRAWS = 5;
+  const MAX_TESTIMONIALS = 10;
   let content;
   // path -> { sha, preview }: fotos subidas en esta sesión que quizá aún no están en el sitio.
   const uploaded = new Map();
@@ -61,6 +63,17 @@
   const today = () => new Date().toISOString().slice(0, 10);
   const fmtDate = (iso) => new Intl.DateTimeFormat('es-CO', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${iso}T00:00:00Z`));
   const money = (v) => (/^\d+$/.test(v) ? '$' + Number(v).toLocaleString('es-CO') : v);
+
+  const total = () => content.drawsTotal ?? content.draws.length;
+  /** Si al agregar `draw` se pasa del límite, devuelve el sorteo que se eliminaría (el de fecha más antigua). */
+  const drawDropped = (draw) => {
+    const all = [draw, ...content.draws].sort((a, b) => b.date.localeCompare(a.date));
+    return all.length > MAX_DRAWS ? all[MAX_DRAWS] : null;
+  };
+  const confirmDrop = (draw) => {
+    const dropped = drawDropped(draw);
+    return !dropped || confirm(`Ya hay ${MAX_DRAWS} sorteos publicados. Al guardar se eliminará el más antiguo (${fmtDate(dropped.date)}) con sus fotos, pero el contador seguirá subiendo. ¿Continuar?`);
+  };
 
   const go = (hash) => { location.hash = hash; };
   const reload = async () => { content = await api('/api/admin/content'); };
@@ -145,11 +158,11 @@
     const modules = [
       ['#whatsapp', 'Link de WhatsApp', content.whatsappUrl.replace('https://', '').slice(0, 42)],
       ['#proximo', 'Próximo sorteo', nd ? `${fmtDate(nd.date)} · ${Object.keys(nd.prizes).length} premio(s)` : 'Sin sorteo programado'],
-      ['#realizados', 'Sorteos realizados', `${content.draws.length} registrados`],
+      ['#realizados', 'Sorteos realizados', `${total()} en total · ${content.draws.length} visibles en la web`],
       ['#testimonios', 'Testimonios y evidencias', `${content.testimonials.length} publicados`],
     ];
     return [
-      h('div', { class: 'stat' }, h('b', {}, String(content.draws.length)), h('span', { class: 'hint' }, content.draws.length === 1 ? 'sorteo realizado' : 'sorteos realizados')),
+      h('div', { class: 'stat' }, h('b', {}, String(total())), h('span', { class: 'hint' }, total() === 1 ? 'sorteo realizado' : 'sorteos realizados')),
       h('div', { class: 'modules' }, modules.map(([to, title, sub]) =>
         h('button', { class: 'module', type: 'button', onclick: () => go(to) }, h('b', {}, title), h('span', {}, sub)))),
       h('p', { class: 'hint', style: 'margin-top:16px' }, 'Cada cambio se guarda por separado y el sitio se actualiza solo en cerca de 1 minuto.'),
@@ -240,6 +253,7 @@
         form.el,
         actions(async () => {
           const draw = form.collect();
+          if (!confirmDrop(draw)) return;
           await save({ nextDraw: null, draws: [draw, ...content.draws] }, 'Sorteo finalizado y publicado.');
           go('#realizados');
         }, '#proximo', 'Finalizar y publicar')),
@@ -255,7 +269,7 @@
           h('div', { class: 'btns' },
             h('button', { class: 'small', type: 'button', onclick: () => go('#realizados/' + d.id) }, 'Editar'),
             h('button', { class: 'small danger', type: 'button', onclick: async () => {
-              if (!confirm('¿Eliminar este sorteo y sus fotos?')) return;
+              if (!confirm('¿Eliminar este sorteo y sus fotos? El contador bajará en 1.')) return;
               try { await save({ draws: content.draws.filter((x) => x.id !== d.id) }, 'Sorteo eliminado.'); route(); } catch (err) { say(err.message, false); }
             } }, 'Eliminar'))))
       : [h('p', { class: 'hint' }, 'Todavía no hay sorteos registrados.')];
@@ -263,7 +277,7 @@
       back('#'),
       h('div', { class: 'card' },
         h('h2', {}, 'Sorteos realizados'),
-        h('p', { class: 'hint' }, 'El contador de la web es la cantidad de sorteos de esta lista.'),
+        h('p', { class: 'hint' }, `La web muestra los ${MAX_DRAWS} más recientes. Al agregar uno nuevo se elimina el más antiguo, pero el contador (${total()} en total) no baja.`),
         list,
         h('div', { class: 'actions' }, h('button', { class: 'primary', type: 'button', onclick: () => go('#realizados/nuevo') }, '+ Registrar sorteo realizado'))),
     ];
@@ -280,6 +294,7 @@
         form.el,
         actions(async () => {
           const draw = form.collect();
+          if (!existing && !confirmDrop(draw)) return;
           const draws = existing ? content.draws.map((d) => (d.id === draw.id ? draw : d)) : [draw, ...content.draws];
           await save({ draws });
           go('#realizados');
@@ -303,7 +318,7 @@
       back('#'),
       h('div', { class: 'card' },
         h('h2', {}, 'Testimonios y evidencias'),
-        h('p', { class: 'hint' }, 'Se muestran en la portada, con la foto y el texto que pongas.'),
+        h('p', { class: 'hint' }, `Se muestran en la portada. Máximo ${MAX_TESTIMONIALS}: al agregar uno nuevo se elimina el más antiguo.`),
         list,
         h('div', { class: 'actions' }, h('button', { class: 'primary', type: 'button', onclick: () => go('#testimonios/nuevo') }, '+ Agregar'))),
     ];
@@ -326,6 +341,10 @@
         actions(async () => {
           const item = { id: t.id, name: name.value.trim(), text: body.value.trim(), image: images[0] || '' };
           if (!item.text && !item.image) throw new Error('Pon un texto o una foto.');
+          if (!existing && content.testimonials.length >= MAX_TESTIMONIALS) {
+            const old = content.testimonials[MAX_TESTIMONIALS - 1];
+            if (!confirm(`Ya hay ${MAX_TESTIMONIALS} testimonios. Al guardar se eliminará el más antiguo (${old.name || 'sin nombre'}) con su foto. ¿Continuar?`)) return;
+          }
           const testimonials = existing ? content.testimonials.map((x) => (x.id === item.id ? item : x)) : [item, ...content.testimonials];
           await save({ testimonials });
           go('#testimonios');

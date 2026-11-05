@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { isAuthed, json, sameOriginJson } from '../../../lib/auth';
-import { imagesOf, parseContent, type SiteContent } from '../../../lib/content';
+import { MAX_DRAWS, MAX_TESTIMONIALS, imagesOf, parseContent, type SiteContent } from '../../../lib/content';
 import { CONTENT_FILE, commit, githubConfigured, readContent } from '../../../lib/github';
 
 export const prerender = false;
@@ -27,6 +27,20 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const current = (await readContent()) as SiteContent;
     const merged: Record<string, unknown> = { ...current };
     for (const k of SECTIONS) if (k in changes) merged[k] = changes[k];
+
+    // Límites para no saturar la web: se quedan los más recientes y se elimina el resto.
+    if (Array.isArray(changes.draws)) {
+      const before = new Set(current.draws.map((d) => d.id));
+      const incoming = new Set(changes.draws.map((d: any) => d?.id));
+      const added = changes.draws.filter((d: any) => !before.has(d?.id)).length;
+      const removed = current.draws.filter((d) => !incoming.has(d.id)).length;
+      // El contador sube con cada sorteo nuevo y solo baja si alguien elimina uno a propósito, nunca por el límite.
+      merged.drawsTotal = Math.max(0, (current.drawsTotal ?? current.draws.length) + added - removed);
+      merged.draws = [...changes.draws]
+        .sort((a: any, b: any) => String(b?.date).localeCompare(String(a?.date)))
+        .slice(0, MAX_DRAWS);
+    }
+    if (Array.isArray(changes.testimonials)) merged.testimonials = changes.testimonials.slice(0, MAX_TESTIMONIALS);
 
     const parsed = parseContent(merged);
     if (!parsed.ok) return json({ error: parsed.error }, 400);
