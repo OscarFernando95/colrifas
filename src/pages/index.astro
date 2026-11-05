@@ -5,6 +5,7 @@ import Rules from '../components/Rules.astro';
 import Marquee from '../components/Marquee.astro';
 import Steps from '../components/Steps.astro';
 import Sorteos from '../components/Sorteos.astro';
+import Testimonios from '../components/Testimonios.astro';
 import FaqList from '../components/FaqList.astro';
 import FinalCta from '../components/FinalCta.astro';
 import { FAQS } from '../data/faq';
@@ -18,7 +19,7 @@ const jsonLd = [
     name: SITE.name,
     url: SITE.url,
     logo: `${SITE.url}${SITE.logo}`,
-    description: 'Sorteos en efectivo en Colombia con resultados definidos por la lotería oficial del día. Lanzamiento muy pronto.',
+    description: 'Sorteos en efectivo en Colombia con resultados definidos por la lotería oficial del día. Sorteos ya en marcha, con evidencias y ganadores publicados.',
     areaServed: 'CO',
     sameAs: Object.values(SITE.social),
   },
@@ -35,8 +36,8 @@ const jsonLd = [
 ---
 
 <Base
-  title="COLRIFAS | Sorteos en efectivo en Colombia · Muy pronto"
-  description="Sorteos en efectivo con resultados de la lotería oficial del día. Entra gratis al grupo de WhatsApp y entérate primero del lanzamiento."
+  title="COLRIFAS | Sorteos en efectivo en Colombia · Resultados con la lotería oficial"
+  description="Sorteos en efectivo con resultados de la lotería oficial del día. Entra gratis al grupo de WhatsApp y entérate primero del próximo sorteo."
   path="/"
   jsonLd={jsonLd}
 >
@@ -45,6 +46,7 @@ const jsonLd = [
   <Marquee />
   <Steps />
   <Sorteos />
+  <Testimonios />
   <section class="section" aria-labelledby="faq-title">
     <div class="container">
       <div class="section-head">

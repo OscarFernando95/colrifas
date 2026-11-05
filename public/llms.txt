@@ -1,7 +1,7 @@
 # COLRIFAS
 
 > Sorteos y dinámicas en efectivo en Colombia, operados a través de un grupo
-> oficial de WhatsApp. Lanzamiento próximo: aún no se han realizado sorteos.
+> oficial de WhatsApp. Los sorteos ya están en marcha: cada resultado se publica con su evidencia.
 > El número ganador se define con el resultado de la lotería oficial del día
 > (por ejemplo, con las dos últimas, las dos primeras o las dos cifras del
 > medio, según indique cada dinámica). Entrar al grupo es gratis.

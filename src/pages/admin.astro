@@ -18,34 +18,50 @@ Astro.response.headers.set('x-robots-tag', 'noindex, nofollow');
     <title>Panel · COLRIFAS</title>
     <link rel="icon" href="/favicon.png" />
     <style is:global>
-      :root { --gold: #cca43b; --ink: #16161a; --muted: #57554f; --bg: #faf9f6; --card: #fff; --line: rgba(22,22,26,.14); --bad: #b3261e; --ok: #1b6e3c; }
+      :root { --gold: #cca43b; --gold-soft: #f6efdd; --ink: #16161a; --muted: #57554f; --bg: #faf9f6; --card: #fff; --line: rgba(22,22,26,.14); --bad: #b3261e; --ok: #1b6e3c; }
       * { box-sizing: border-box; }
       body { margin: 0; font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif; color: var(--ink); background: var(--bg); }
-      main { max-width: 760px; margin: 0 auto; padding: 24px 16px 96px; }
+      main { max-width: 760px; margin: 0 auto; padding: 24px 16px 110px; }
       h1 { font-size: 1.5rem; margin: 0; }
-      h2 { font-size: 1.1rem; margin: 0 0 12px; }
+      h2 { font-size: 1.25rem; margin: 0 0 4px; }
+      h3 { font-size: 1rem; margin: 18px 0 8px; }
       .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 20px; }
       .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
       label { display: grid; gap: 4px; font-size: .9rem; color: var(--muted); margin-bottom: 12px; }
       input, textarea { font: inherit; color: var(--ink); padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: #fff; width: 100%; }
-      input:focus, textarea:focus, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+      input:focus, textarea:focus, button:focus-visible, .module:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
       .row { display: grid; gap: 12px; grid-template-columns: 1fr; }
       @media (min-width: 560px) { .row { grid-template-columns: 1fr 1fr; } }
-      button { font: inherit; font-weight: 600; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
-      button.primary { background: var(--gold); border-color: var(--gold); color: #16161a; }
+      button { font: inherit; font-weight: 600; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; color: var(--ink); }
+      button.primary { background: var(--gold); border-color: var(--gold); }
       button.danger { color: var(--bad); }
+      button.small { padding: 6px 12px; font-size: .9rem; }
       button:disabled { opacity: .55; cursor: wait; }
-      .counter { font-size: 2.2rem; font-weight: 700; line-height: 1; }
-      .draw { border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 12px; background: #fcfbf8; }
-      .draw-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: 600; }
-      .thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+      .back { background: none; border: 0; padding: 0; color: var(--muted); font-weight: 500; margin-bottom: 14px; }
+      .hint { color: var(--muted); font-size: .88rem; margin: 0 0 12px; }
+      .stat { display: flex; align-items: baseline; gap: 10px; margin-bottom: 18px; }
+      .stat b { font-size: 2.4rem; line-height: 1; }
+      .modules { display: grid; gap: 12px; grid-template-columns: 1fr; }
+      @media (min-width: 560px) { .modules { grid-template-columns: 1fr 1fr; } }
+      .module { text-align: left; display: grid; gap: 4px; padding: 18px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); }
+      .module:hover { border-color: var(--gold); background: var(--gold-soft); }
+      .module b { font-size: 1.05rem; }
+      .module span { color: var(--muted); font-weight: 400; font-size: .92rem; }
+      .item { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+      .item:first-child { border-top: 0; }
+      .item .meta { display: grid; gap: 2px; min-width: 0; }
+      .item .meta span { color: var(--muted); font-size: .9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .item .btns { display: flex; gap: 8px; flex-shrink: 0; }
+      .prize { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px 2px; margin-bottom: 12px; background: #fcfbf8; }
+      .prize strong { display: block; margin-bottom: 8px; }
+      .thumbs { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 12px; }
       .thumb { position: relative; width: 84px; height: 84px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #eee; }
       .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
       .thumb button { position: absolute; top: 2px; right: 2px; padding: 0 7px; line-height: 22px; border-radius: 99px; }
       #status { position: fixed; left: 0; right: 0; bottom: 0; padding: 14px 16px; text-align: center; font-weight: 600; background: #fff; border-top: 1px solid var(--line); display: none; }
       #status.ok { color: var(--ok); display: block; }
       #status.bad { color: var(--bad); display: block; }
-      .hint { color: var(--muted); font-size: .88rem; margin: 0 0 12px; }
     </style>
   </head>
   <body>
@@ -66,36 +82,7 @@ Astro.response.headers.set('x-robots-tag', 'noindex, nofollow');
       {configured && authed && (
         <div id="app" hidden>
           <div class="bar"><h1>Panel COLRIFAS</h1><button id="logout" type="button">Salir</button></div>
-
-          <section class="card">
-            <h2>Link del grupo de WhatsApp</h2>
-            <label>Enlace<input id="whatsappUrl" inputmode="url" placeholder="https://chat.whatsapp.com/..." /></label>
-          </section>
-
-          <section class="card">
-            <h2>Contador</h2>
-            <div class="counter" id="counter">0</div>
-            <p class="hint">Sorteos realizados. Sube solo: se calcula con la lista de abajo.</p>
-          </section>
-
-          <section class="card">
-            <h2>Próximo sorteo</h2>
-            <div class="row">
-              <label>Fecha<input id="nd-date" type="date" /></label>
-              <label>Premio<input id="nd-prize" maxlength="200" placeholder="Ej: $500.000 en efectivo" /></label>
-            </div>
-            <label>Nota (opcional)<textarea id="nd-note" rows="2" maxlength="300"></textarea></label>
-            <p class="hint">Deja la fecha vacía para ocultarlo en la web.</p>
-          </section>
-
-          <section class="card">
-            <h2>Sorteos realizados</h2>
-            <div id="draws"></div>
-            <button id="add-draw" type="button">+ Agregar sorteo</button>
-          </section>
-
-          <button id="save" class="primary" type="button">Guardar cambios</button>
-          <p class="hint" style="margin-top:10px">Al guardar, el sitio se actualiza solo en cerca de 1 minuto.</p>
+          <div id="view"></div>
         </div>
       )}
     </main>

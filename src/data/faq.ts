@@ -17,8 +17,8 @@ export const FAQS: Faq[] = [
     home: true,
   },
   {
-    q: '¿Cuándo es el primer sorteo?',
-    a: 'Muy pronto. La fecha se anuncia primero en el grupo oficial de WhatsApp.',
+    q: '¿Cuándo es el próximo sorteo?',
+    a: 'La fecha y los premios del próximo sorteo se publican en esta página y se anuncian primero en el grupo oficial de WhatsApp.',
     home: true,
   },
   {

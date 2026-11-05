@@ -1,0 +1,40 @@
+---
+import content from '../data/content.json';
+import type { Testimonial } from '../lib/content';
+
+const items = content.testimonials as Testimonial[];
+---
+
+{items.length > 0 && (
+  <section class="section" id="testimonios" aria-labelledby="testimonios-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="testimonios-title" class="h2" data-split>Lo dicen quienes ya ganaron.</h2>
+        <p class="lead" data-reveal>Testimonios y comprobantes reales de nuestra comunidad.</p>
+      </div>
+      <div class="grid" data-stagger>
+        {items.map((t) => (
+          <figure class="card clay">
+            {t.image && (
+              <a href={t.image} target="_blank" rel="noopener noreferrer">
+                <img src={t.image} alt={t.name ? `Evidencia de ${t.name}` : 'Evidencia de un pago'} loading="lazy" decoding="async" />
+              </a>
+            )}
+            {t.text && <blockquote>{t.text}</blockquote>}
+            {t.name && <figcaption>{t.name}</figcaption>}
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  .card { margin: 0; padding: 18px; display: grid; gap: 14px; align-content: start; }
+  .card img { width: 100%; max-height: 420px; object-fit: cover; border-radius: 14px; display: block; }
+  blockquote { margin: 0; font-size: 1.05rem; line-height: 1.5; }
+  figcaption { color: var(--gold-text); font-weight: 600; }
+</style>
