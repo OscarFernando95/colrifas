@@ -1,0 +1,59 @@
+---
+// Carrusel horizontal: se desliza con el dedo, el mouse (arrastrando) o las flechas. Los hijos son las tarjetas.
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+---
+
+<div class="rail" data-rail>
+  <div class="track" tabindex="0" role="region" aria-label={label}>
+    <slot />
+  </div>
+  <button class="arrow prev" type="button" aria-label="Anterior" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+  </button>
+  <button class="arrow next" type="button" aria-label="Siguiente" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+  </button>
+</div>
+
+<script>
+  import '../scripts/carousel';
+</script>
+
+<style>
+  .rail { position: relative; }
+  .track {
+    display: flex; align-items: flex-start; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+    overscroll-behavior-x: contain; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    /* Aire arriba y abajo para que no se corten las sombras de las tarjetas */
+    padding: 14px var(--pad, 18px) 40px; margin: -14px calc(var(--pad, 18px) * -1) -40px;
+    scroll-padding-inline: var(--pad, 18px);
+    --fade-l: 0px; --fade-r: 0px;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent 100%);
+  }
+  .track::-webkit-scrollbar { display: none; }
+  .track:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: -2px; border-radius: 16px; }
+  .track > :global(*) { flex: 0 0 var(--card-w, 290px); scroll-snap-align: start; }
+  .track.dragging { scroll-snap-type: none; scroll-behavior: auto; cursor: grabbing; user-select: none; }
+  .track.dragging :global(a) { pointer-events: none; }
+  @media (hover: hover) { .track.can-drag { cursor: grab; } }
+
+  .arrow {
+    position: absolute; top: 50%; width: 42px; height: 42px; margin-top: -21px; border-radius: 50%; display: none; place-items: center;
+    cursor: pointer; color: var(--ink); background: var(--glass-bg); border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: var(--glass-shadow);
+    transition: background 0.2s, transform 0.2s, opacity 0.2s;
+  }
+  .arrow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .arrow.prev { left: 4px; }
+  .arrow.next { right: 4px; }
+  .arrow:hover:not(:disabled) { background: var(--gold); transform: scale(1.08); }
+  .arrow:disabled { opacity: 0; pointer-events: none; }
+  .arrow:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
+  /* Flechas solo donde hay mouse; en el celular se desliza con el dedo */
+  @media (hover: hover) and (pointer: fine) { .rail[data-overflow] .arrow { display: grid; } }
+  @media (prefers-reduced-motion: reduce) { .track { scroll-behavior: auto; } }
+</style>

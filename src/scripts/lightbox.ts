@@ -31,7 +31,7 @@ if (root) {
   function fill(i: number) {
     const a = items[i];
     img.src = a.href;
-    img.alt = thumbOf(a).getAttribute('alt') || 'Imagen';
+    img.alt = a.dataset.caption || thumbOf(a).getAttribute('alt') || 'Imagen';
     cap.textContent = a.dataset.caption || '';
     cap.hidden = !a.dataset.caption;
     count.textContent = items.length > 1 ? `${i + 1} / ${items.length}` : '';

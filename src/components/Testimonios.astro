@@ -1,43 +1,59 @@
 ---
 import content from '../data/content.json';
+import Rail from './Rail.astro';
 import type { Testimonial } from '../lib/content';
 
 const items = content.testimonials as Testimonial[];
 ---
 
 {items.length > 0 && (
-  <section class="section" id="testimonios" aria-labelledby="testimonios-title">
+  <section class="section compact" id="testimonios" aria-labelledby="testimonios-title">
     <div class="container">
-      <div class="section-head">
-        <h2 id="testimonios-title" class="h2" data-split>Lo dicen quienes ya ganaron.</h2>
+      <div class="head">
+        <h2 id="testimonios-title" class="h2 t" data-split>Lo dicen quienes ya ganaron.</h2>
         <p class="lead" data-reveal>Testimonios y comprobantes reales de nuestra comunidad.</p>
       </div>
-      <div class="grid" data-stagger>
-        {items.map((t) => (
-          <figure class="card clay">
-            {t.image && (
-              <a href={t.image} target="_blank" rel="noopener noreferrer" data-lightbox="testimonios" data-caption={[t.name, t.text].filter(Boolean).join(' · ').slice(0, 160)}>
-                <img src={t.image} alt={t.name ? `Evidencia de ${t.name}` : 'Evidencia de un pago'} loading="lazy" decoding="async" />
-              </a>
-            )}
-            {t.text && <blockquote>{t.text}</blockquote>}
-            {t.name && <figcaption>{t.name}</figcaption>}
-          </figure>
-        ))}
+
+      <div data-reveal>
+        <Rail label="Testimonios y evidencias">
+          {items.map((t) => (
+            <figure class="card clay">
+              {t.image && (
+                <a
+                  href={t.image}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-lightbox="testimonios"
+                  data-caption={[t.name, t.text].filter(Boolean).join(' · ').slice(0, 300)}
+                  aria-label={t.name ? `Ver evidencia de ${t.name}` : 'Ver evidencia'}
+                >
+                  <img src={t.image} alt="" loading="lazy" decoding="async" />
+                </a>
+              )}
+              {t.text && <blockquote>{t.text}</blockquote>}
+              {t.name && <figcaption>{t.name}</figcaption>}
+            </figure>
+          ))}
+        </Rail>
       </div>
     </div>
   </section>
 )}
 
 <style>
-  .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
-  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-  .card { margin: 0; padding: 18px; display: grid; gap: 14px; align-content: start; }
+  .compact { padding-block: clamp(44px, 6vw, 76px); }
+  .head { display: grid; gap: 6px; margin-bottom: 22px; }
+  .h2.t { font-size: clamp(1.8rem, 4.2vw, 2.7rem); }
+  .head .lead { font-size: 1rem; }
+
+  .card { --card-w: 270px; margin: 0; padding: 12px 14px 16px; display: grid; gap: 10px; align-content: start; border-radius: 22px; }
   .card a { display: block; overflow: hidden; border-radius: 14px; cursor: zoom-in; }
-  .card a:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 3px; }
-  .card img { width: 100%; max-height: 420px; object-fit: cover; display: block; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  @media (hover: hover) { .card a:hover img { transform: scale(1.05); } }
-  blockquote { margin: 0; font-size: 1.05rem; line-height: 1.5; }
-  figcaption { color: var(--gold-text); font-weight: 600; }
+  .card a:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
+  .card img { width: 100%; height: 150px; object-fit: cover; display: block; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  @media (hover: hover) { .card a:hover img { transform: scale(1.06); } }
+  blockquote {
+    margin: 0; padding-inline: 4px; font-size: 0.95rem; line-height: 1.45;
+    display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  figcaption { padding-inline: 4px; color: var(--gold-text); font-weight: 600; font-size: 0.92rem; }
 </style>
