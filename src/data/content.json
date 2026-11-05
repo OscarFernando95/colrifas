@@ -1,5 +1,19 @@
 {
   "whatsappUrl": "https://chat.whatsapp.com/ImxddmUt14BEXxVHQdv9VE?s=cl&p=a&iam=2",
-  "nextDraw": { "date": "", "prize": "", "note": "" },
-  "draws": []
+  "nextDraw": {
+    "date": "",
+    "prize": "",
+    "note": ""
+  },
+  "draws": [
+    {
+      "id": "sorteo-mw3kxhfz",
+      "date": "2026-11-02",
+      "prize": "300000",
+      "winner": "3242508604 (200.000), 3224075283 (50.000) y 3202516935 (50.000)",
+      "images": [
+        "/evidencias/mw3l02nf-e4ab667e.jpg"
+      ]
+    }
+  ]
 }
