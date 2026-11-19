@@ -27,5 +27,12 @@
     }
   ],
   "drawsTotal": 1,
-  "testimonials": []
+  "testimonials": [
+    {
+      "id": "testimonio-mwmvrczg",
+      "name": "Jennifer",
+      "text": "Ganadora de 100k",
+      "image": "/evidencias/mwmvs6t5-3779e8bb.jpg"
+    }
+  ]
 }
