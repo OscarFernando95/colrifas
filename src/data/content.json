@@ -1,6 +1,15 @@
 {
   "whatsappUrl": "https://chat.whatsapp.com/BxfHQdoM5yj2cQxKMkxbb4?s=cl&p=a&iam=2",
-  "nextDraw": null,
+  "nextDraw": {
+    "id": "sorteo-mwtsh2wv",
+    "date": "2026-11-24",
+    "prizes": {
+      "last2": "50000",
+      "first2": "1 Puesto Grátis",
+      "middle2": "1 Puesto Grátis"
+    },
+    "note": ""
+  },
   "draws": [
     {
       "id": "sorteo-mw3kxhfz",
